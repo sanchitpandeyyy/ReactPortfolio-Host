@@ -1,0 +1,15 @@
+@media screen and (max-width: 768px) {
+    #contactpage{
+        display: flex;
+        flex-direction: column;
+         gap: 40px;
+    }
+
+    #details{
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+}
