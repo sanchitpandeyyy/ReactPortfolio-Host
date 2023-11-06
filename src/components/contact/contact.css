@@ -1,3 +1,13 @@
+@media screen and (min-width: 768px) and (max-width:2000px){ 
+    #details{
+        display: flex;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 0px 0 15px 10px;
+        margin-top: -5px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     #contactpage{
         display: flex;
@@ -12,4 +22,31 @@
         gap: 10px;
     }
 
+}
+
+
+@media screen and (max-width: 380px) {
+    #social-icons{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        font-size: small;
+    }
+
+    #details{
+        display: flex;
+        flex-direction: column;
+        font-size: small;
+        text-align: center;
+      
+    }
+}
+
+@media screen and (max-width: 300px){
+
+    #details{
+        padding: 5px;
+        margin-left: -18px;
+    }
 }
