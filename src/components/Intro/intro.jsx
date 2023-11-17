@@ -9,23 +9,23 @@ import Fade from 'react-reveal/Fade';
 
 const Intro = () => {
 
-  document.oncontextmenu = () => {
-    alert('Right Click Kina Gareko hmm🤨?')
-    return false
-}
+//   document.oncontextmenu = () => {
+//     alert('Right Click Kina Gareko hmm🤨?')
+//     return false
+// }
 
-document.onkeydown = (e) => {
+// document.onkeydown = (e) => {
 
-      if (e.ctrlKey && e.key == "U" || e.key == 'u') {
-        alert('Uhh Chor Aayo Chor😡')
-          return false
-        }
+//       if (e.ctrlKey && e.key == "U" || e.key == 'u') {
+//         alert('Uhh Chor Aayo Chor😡')
+//           return false
+//         }
 
-    if (e.ctrlKey && e.shiftKey && e.key == "I") {
-        alert('Mildenna haau sathi xoddeu !!')
-        return false
-    }
-  }
+//     if (e.ctrlKey && e.shiftKey && e.key == "I") {
+//         alert('Mildenna haau sathi xoddeu !!')
+//         return false
+//     }
+//   }
 
   return (
     <section className='flex justify-between w-full ' id='intro'>
