@@ -37,7 +37,7 @@ const footer = () => {
     <div className='pt-8'>
     <hr/>
     <span id='copy'  className=' pt-5 flex justify-center text-2xl'> Copyright &copy;  All Rights Reserved-2023 </span>
-    <span id='design' className='pt-5 flex justify-center gap-2'>Designed and Developed By <a className='font-bold text-yellow-400 ' href='https://github.com/Sanchit-Pandeyy'> Sanchit Pandey.</a> </span>
+    <span id='design' className='pt-5 flex justify-center flex-col items-center gap-2'>Designed and Developed By <a className='font-bold text-yellow-400 ' href='https://github.com/Sanchit-Pandeyy'> Sanchit Pandey.</a> </span>
    </div>
     </div>
     

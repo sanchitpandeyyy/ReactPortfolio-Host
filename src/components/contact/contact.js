@@ -33,7 +33,7 @@ const Contact = () => {
      if(name && email && message){	
 
 
-      const res = await fetch("", {	
+      const res = await fetch("portcontact.com/json", {	
         method: 'POST',	
         headers: {	
           "Content-Type": "application/json",	
@@ -96,7 +96,8 @@ const Contact = () => {
             <h2 className='mb-3 text-2xl font-bold flex justify-center '>Contact Form</h2>	
             <input className='w-full mb-4 p-3 rounded-md border-white border-2' type="text" value={user.name} onChange={getUserData} name='name' placeholder="Your Name" required/>	
             <input className='w-full mb-4 p-3 rounded-md border-white border-2' type="email" value={user.email} onChange={getUserData} name='email' placeholder="Your Email" required/>	
-            <textarea className='w-full mb-4 p-3 rounded-md border-white border-2' value={user.message} onChange={getUserData} name='message' placeholder="Your Message" required></textarea>	
+            <textarea className='w-full mb-4 p-3 rounded-md border-white border-2' value={user.message} onChange={getUserData} name='message' placeholder="Your Message" required>
+              </textarea>	
             
             <button onClick={postData} type="submit" className='w-full mb-4 p-3 rounded-md bg-white text-black cursor-pointer hover:bg-yellow-500 font-semibold'>Submit</button>	
         </form> 	

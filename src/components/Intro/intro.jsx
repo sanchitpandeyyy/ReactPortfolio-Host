@@ -28,7 +28,6 @@ const Intro = () => {
 //   }
 
 
-
   return (
     <section className='flex justify-between w-full ' id='intro'>
       <Fade left>
