@@ -27,6 +27,7 @@ const Intro = () => {
 //     }
 //   }
 
+
   return (
     <section className='flex justify-between w-full ' id='intro'>
       <Fade left>
@@ -36,7 +37,7 @@ const Intro = () => {
         <span className="text-yellow-400"> Sanchit </span><br/>A Web Developer</span>
         <span id='text' className="text-xs font-medium w-1/2 tracking-wider">A developer who crafts digital experiences. Welcome to a World of Creative Possibilities where Vision Meets Design.</span>
 
-        <a href='' className=''>
+        <a className='cursor-pointer'>
         <Link activeClass="active" to="contact" spy={true} smooth={true} offset={-100} duration={500} className=' bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 rounded-full text-xl font-bold text-center text-white  flex w-44 items-center justify-center'>
         <img src={hire} alt='hire'  className='h-11 w-11 m-2 rounded-full' />Hire Me!
         </Link>
