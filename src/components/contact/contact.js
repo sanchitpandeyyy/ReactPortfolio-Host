@@ -87,9 +87,9 @@ const Contact = () => {
             <p id='details' className=''> <b> Email: </b>admin@sanchitpandey.com.np</p>	
             <span id='details' className=' '  > <b>Phone:</b> +977 9841148149</span>	
             <div id='social-icons' className="mt-5 flex justify-center">	
-                <a href="https://www.facebook.com/Sanchit.Pandeyy/"  className="hover:text-yellow-400 font-black mr-3 bg-blue-900 p-2 rounded-full mb-4 w-28 text-center">Facebook</a>	
-                <a href="https://github.com/Sanchit-Pandeyy" className="hover:text-yellow-400 font-black mr-3 bg-black p-2 rounded-full mb-4 w-28 text-center">GitHub</a>	
-                <a href="https://www.instagram.com/sanchit_pandeyy/" className="hover:text-black font-black mr-3 from-pink-500 bg-gradient-to-r to-yellow-500 p-2 rounded-full mb-4 w-28 text-center">Instagram</a>	
+                <a href="https://www.facebook.com/sanchitpandeyyy/"  className="hover:text-yellow-400 font-black mr-3 bg-blue-900 p-2 rounded-full mb-4 w-28 text-center">Facebook</a>	
+                <a href="https://github.com/sanchitpandeyyy" className="hover:text-yellow-400 font-black mr-3 bg-black p-2 rounded-full mb-4 w-28 text-center">GitHub</a>	
+                <a href="https://www.instagram.com/sanchitpandeyyy/" className="hover:text-black font-black mr-3 from-pink-500 bg-gradient-to-r to-yellow-500 p-2 rounded-full mb-4 w-28 text-center">Instagram</a>	
             </div>	
         </div>	
         <form className=" rounded-md border-white border-2 p-5 bg-blue-950">	
