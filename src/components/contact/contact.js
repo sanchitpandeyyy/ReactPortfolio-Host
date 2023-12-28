@@ -33,7 +33,7 @@ const Contact = () => {
      if(name && email && message){	
 
 
-      const res = await fetch("portcontact.com/json", {	
+      const res = await fetch("https://192.168.21.68:5002/sanchitpandeyyy.json", {	
         method: 'POST',	
         headers: {	
           "Content-Type": "application/json",	
