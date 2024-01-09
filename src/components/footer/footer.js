@@ -1,5 +1,5 @@
 import React from 'react'
-import logo from '../../img/logoo.png';
+import logo from '../../img/Sanchit Pandey.png';
 import email from '../../img/email.png';
 import phone from '../../img/phone.jpg';
 import loc from '../../img/location.jpg';
@@ -11,7 +11,7 @@ const footer = () => {
     <div className='bg-black'>
       <div className='bg-black flex justify-around '>
         <div className='flex justify-center items-center'>
-          <img src={logo} alt='' className='w-28 h-28 ' />
+          <img src={logo} alt='' className='w-36 h-36 ' />
         </div>
         <div className=''>
 

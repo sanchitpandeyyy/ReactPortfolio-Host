@@ -44,7 +44,7 @@ const Intro = () => {
         </a>
        </div>
        </Fade>
-       <img src={bg} alt='background' id='bg' className='absolute -z-10 right-0 h-screen ' />
+       <img src={bg} alt='background' id='bg' className='absolute -z-10 right-0 ' />
        
     </section>
   )

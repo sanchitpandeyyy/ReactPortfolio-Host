@@ -1,6 +1,6 @@
 import React from 'react';
 import './nav.css';
-import logo from '../../img/logoo.png';
+import logo from '../../img/Sanchit Pandey.png';
 import contactimg from '../../img/contact1.png';
 import { Link } from 'react-scroll';
 
@@ -12,8 +12,8 @@ export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <div id='nav' className=" h-20 w-screen py-4 px-8 flex  justify-between sticky top-0 z-10">
-   <Link to="intro" spy={true} smooth={true} offset={-100} duration={500} className='cursor-pointer'> <img src={logo} alt='logo' className=' w-12 h-12'/></Link>
+    <div id='nav' className=" h-20 w-screen py-4 px-8 flex  justify-between items-center sticky top-0 z-10">
+   <Link to="intro" spy={true} smooth={true} offset={-100} duration={500} className='cursor-pointer'> <img src={logo} alt='logo' className=' w-20 h-20'/></Link>
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">
           <div
