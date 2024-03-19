@@ -4,7 +4,7 @@ import UI from "../../img/uiux.jpg";
 import Graphics from "../../img/graphics.jpg";
 import Web from "../../img/web.jpg";
 
-const skill = () => {
+const about = () => {
   return (
 
     <section id='about' className=" gap-1 overflow-hidden w-screen flex flex-col text-center my-0 mx-auto">
@@ -18,7 +18,7 @@ const skill = () => {
 
 
 
-       <div className= " cursor-pointer gap-4 flex justify-center items-center bg-blue-950 w-96 h-20 rounded-full hover:bg-yellow-600 ">
+       <div className= " cursor-pointer gap-4 flex justify-center items-center bg-blue-950 w-[22rem] h-20 rounded-full hover:bg-yellow-600 ">
         <img className="h-14 w-14 rounded-full" src={Graphics} alt='' />
         <div className="">
             <h2 className='text-2xl font-bold'>Graphics Design</h2>
@@ -27,7 +27,7 @@ const skill = () => {
        </div>
 
 
-       <div className="cursor-pointer gap-4 flex justify-center items-center bg-blue-950 w-96 h-20 rounded-full hover:bg-yellow-600">
+       <div className="cursor-pointer gap-4 flex only: justify-center items-center bg-blue-950 w-[22rem] h-20 rounded-full hover:bg-yellow-600">
         <img className="h-14 w-14 rounded-full" src={UI} alt='' />
         <div className="">
             <h2 className='text-2xl font-bold'>UI/UX Design</h2>
@@ -37,7 +37,7 @@ const skill = () => {
 
 
 
-       <div className="cursor-pointer gap-4 flex justify-center items-center bg-blue-950 w-96 h-20 rounded-full hover:bg-yellow-600">
+       <div className="cursor-pointer gap-4 flex justify-center items-center bg-blue-950 w-[22rem] h-20 rounded-full hover:bg-yellow-600">
         <img className="h-14 w-14 rounded-full" src={Web} alt='' />
         <div className="">
             <h2 className='text-2xl font-bold'>Web Development</h2>
@@ -53,4 +53,4 @@ const skill = () => {
   )
 }
 
-export default skill;
+export default about;

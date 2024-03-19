@@ -1,6 +1,9 @@
+
 import React from 'react'
 import './skill.css'
 import Fade from 'react-reveal/Fade';
+import photoshop from '../../img/photoshop.png';
+import bootstrap from '../../img/bootstrap.png';
 
 
 const skill = () => {
@@ -17,7 +20,7 @@ const skill = () => {
            <div className='tools'>
             
               <img className=' '        
-                    src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg"
+                    src={bootstrap}
                      alt="bootstrap"
              />
 
@@ -59,7 +62,7 @@ const skill = () => {
             
 
               <img className='  '
-                src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg"
+                src={photoshop}
                 alt="photoshop"
               />
             
