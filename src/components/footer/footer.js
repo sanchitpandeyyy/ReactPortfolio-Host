@@ -3,7 +3,7 @@ import logo from '../../img/Sanchit Pandey.png';
 import email from '../../img/email.png';
 import phone from '../../img/phone.jpg';
 import loc from '../../img/location.jpg';
-import './footer.css';
+import './footer.css'
 
 
 const footer = () => {
@@ -55,7 +55,8 @@ const footer = () => {
       <div className='pt-8'>
         <hr />
         <span id='copy' className=' pt-5 flex justify-center text-2xl'> Copyright &copy;  All Rights Reserved-2023 </span>
-        <span id='design' className='pt-5 flex justify-center flex-col items-center gap-2'>Designed and Developed By <a className='font-bold text-yellow-400 ' href='hhttps://www.linkedin.com/in/sanchitpandeyyy/'> Sanchit Pandey.</a> </span>
+        <span id='design' className='pt-5 flex justify-center flex-col items-center gap-2'>Designed and Developed By
+         <a  className='font-bold text-yellow-400 ' href="https://www.linkedin.com/in/sanchitpandeyyy/"> Sanchit Pandey.</a> </span>
       </div>
     </div>
 
@@ -63,4 +64,4 @@ const footer = () => {
   )
 }
 
-export default footer
+export default footer;

@@ -12,7 +12,7 @@ export default function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <div id='nav' className=" h-20 w-screen py-4 px-8 flex  justify-between items-center sticky top-0 z-10">
+    <div id='nav' className=" shadow-xl h-20 w-screen py-4 px-8 flex  justify-between items-center sticky top-0 z-10">
    <Link to="intro" spy={true} smooth={true} offset={-100} duration={500} className='cursor-pointer'> <img src={logo} alt='logo' className=' w-20 h-20'/></Link>
       <nav>
         <section className="MOBILE-MENU flex lg:hidden">
