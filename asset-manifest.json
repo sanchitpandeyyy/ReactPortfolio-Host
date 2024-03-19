@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0e10db56.css",
+    "main.js": "/static/js/main.195d711a.js",
+    "static/media/heroimg.png": "/static/media/heroimg.6bd9d78e2b511d52c198.png",
+    "static/media/web.jpg": "/static/media/web.1d318d7332bc42975c5f.jpg",
+    "static/media/uiux.jpg": "/static/media/uiux.eca3bff2f6bc80a087c1.jpg",
+    "static/media/graphics.jpg": "/static/media/graphics.9f9875b73aded9dc6202.jpg",
+    "static/media/phone.jpg": "/static/media/phone.c36bedc03c499e3793d8.jpg",
+    "static/media/photoshop.png": "/static/media/photoshop.b97831e6d7dbf3cad6d2.png",
+    "static/media/Sanchit Pandey.png": "/static/media/Sanchit Pandey.2a08f2a8c55f3e5afcb9.png",
+    "static/media/bootstrap.png": "/static/media/bootstrap.ca4ffc71e156b4bcd891.png",
+    "static/media/hire.avif": "/static/media/hire.688f12eacf2e156f0299.avif",
+    "index.html": "/index.html",
+    "main.0e10db56.css.map": "/static/css/main.0e10db56.css.map",
+    "main.195d711a.js.map": "/static/js/main.195d711a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0e10db56.css",
+    "static/js/main.195d711a.js"
+  ]
+}
