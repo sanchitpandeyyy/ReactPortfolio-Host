@@ -3,8 +3,6 @@ import Fade from 'react-reveal/Fade';
 import './contact.css';
 
 
-// firebase content start------	
-
 
 const Contact = () => {
 
@@ -69,7 +67,7 @@ const Contact = () => {
     }
   };
 
-  // firebase content end------	
+
 
 
 
