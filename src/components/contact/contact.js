@@ -33,7 +33,7 @@ const Contact = () => {
     if (name && email && message) {
 
 
-      const res = await fetch("https://portfoliocontact-55520-default-rtdb.firebaseio.com/sanchitpandeyyy.json", {
+      const res = await fetch("https://fuckoff.com", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
