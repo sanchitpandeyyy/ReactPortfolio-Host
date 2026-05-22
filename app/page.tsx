@@ -4,13 +4,19 @@ import { TopNav } from "@/components/TopNav";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { About } from "@/components/About";
+import { Experience } from "@/components/Experience";
+import { Skills } from "@/components/Skills";
 import { Work } from "@/components/Work";
+import { Community } from "@/components/Community";
 import { Now } from "@/components/Now";
 import { Notes } from "@/components/Notes";
 import { Terminal } from "@/components/Terminal";
 import { Endcap } from "@/components/Endcap";
 import { SiteFooter } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
+
+// Sections read from the database, so render this page per request.
+export const dynamic = "force-dynamic";
 
 const limeMarquee = [
   { text: "Full-Stack" },
@@ -47,8 +53,11 @@ export default function Page() {
         <Hero />
         <Marquee items={limeMarquee} variant="lime" />
         <About />
+        <Experience />
+        <Skills />
         <Work />
         <Marquee items={neutralMarquee} variant="neutral" reverse />
+        <Community />
         <Now />
         <Notes />
         <Terminal />

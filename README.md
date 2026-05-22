@@ -1,6 +1,6 @@
 # sanchitpandey.com.np
 
-Personal portfolio for **Sanchit Pandey** — Full-Stack Developer based in Butwal, Nepal.
+Personal portfolio for **Sanchit Pandey** · Full-Stack Developer based in Butwal, Nepal.
 
 Built with Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4, GSAP and Lenis.
 

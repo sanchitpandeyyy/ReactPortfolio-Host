@@ -1,40 +1,42 @@
-import { notes } from "@/lib/projects";
+import Link from "next/link";
+import { getAllPosts } from "@/lib/notes";
 
-export function Notes() {
+export async function Notes() {
+  const posts = (await getAllPosts()).slice(0, 3);
+  if (posts.length === 0) return null;
+
   return (
-    <section className="notes-sec" id="notes" data-screen-label="05 Notes">
+    <section className="notes-sec" id="notes" data-screen-label="08 Notes">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§04</b> &middot; Field Notes
+          <b>§07</b> &middot; Field Notes
         </div>
         <div className="title">
           Things I&apos;m <em>thinking</em> about.
         </div>
-        <div className="meta">prose · monthly-ish</div>
+        <Link href="/notes" className="meta sec-head-link">
+          All notes &rarr;
+        </Link>
       </div>
 
       <div className="notes-grid">
-        {notes.map((n) => (
-          <article key={n.when} className="note" data-reveal>
-            <div className="when">{n.when}</div>
-            <h3>
-              {n.title}
-              {n.titleEm && (
-                <>
-                  {" "}
-                  <em>{n.titleEm}</em>
-                </>
-              )}
-              {n.titleSuffix}
-            </h3>
-            <p>{n.body}</p>
+        {posts.map((p) => (
+          <Link
+            key={p.slug}
+            href={`/notes/${p.slug}`}
+            className="note"
+            data-reveal
+          >
+            <div className="when">{p.date}</div>
+            <h3>{p.title}</h3>
+            <p>{p.excerpt}</p>
             <div className="foot">
               <span>
-                <b>{n.minutes} min</b> read
+                <b>{p.readingMinutes} min</b> read
               </span>
-              <span className="arr">↗</span>
+              <span className="arr">&#8599;</span>
             </div>
-          </article>
+          </Link>
         ))}
       </div>
     </section>

@@ -46,7 +46,7 @@ export function About() {
           <b>§01</b> &middot; Operating Theory
         </div>
         <div className="title">
-          About <em>— in three breaths.</em>
+          About <em>in three breaths.</em>
         </div>
         <div className="meta">2021 → ongoing</div>
       </div>
@@ -65,7 +65,7 @@ export function About() {
 
         <div>
           <p className="about-body" data-reveal>
-            I write software the way a <em>monk</em> stacks stones — one
+            I write software the way a <em>monk</em> stacks stones, one
             careful, <span className="strike">over-engineered</span> deliberate
             decision at a time, until a system feels{" "}
             <span className="mark">inevitable</span>.

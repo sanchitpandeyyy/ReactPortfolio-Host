@@ -1,6 +1,6 @@
 export function Endcap() {
   return (
-    <section className="endcap" data-screen-label="07 Endcap">
+    <section className="endcap" data-screen-label="10 Endcap">
       <h2 data-reveal>
         Let&apos;s
         <br />

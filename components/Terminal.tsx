@@ -104,9 +104,9 @@ export function Terminal() {
 
       whoami() {
         return typewrite([
-          { html: "<b>Sanchit Pandey</b> — Full-Stack Developer, based in Butwal, Nepal.", cls: "ok" },
+          { html: "<b>Sanchit Pandey</b> · Full-Stack Developer, based in Butwal, Nepal.", cls: "ok" },
           { html: "I build web platforms, e-commerce storefronts, WordPress" },
-          { html: "plugin toolkits, and community tools — TypeScript by day," },
+          { html: "plugin toolkits, and community tools. TypeScript by day," },
           { html: "Node after midnight, prose whenever it lets me think more clearly." },
           { html: " " },
           { html: "Off-keyboard: President at the <b>CSIT Association of BMC</b>," },
@@ -120,11 +120,11 @@ export function Terminal() {
       projects() {
         return typewrite([
           { html: "<b>Selected work, 2023 → 2026</b>", cls: "ok" },
-          { html: "  001 &middot; <b>Find Your Fellow</b> — social discovery platform with host-approval workflows." },
-          { html: "  002 &middot; <b>Surface Kit</b> — premium WordPress plugin toolkit with a React admin dashboard." },
-          { html: "  003 &middot; <b>Hamro Admission</b> — B2C admissions platform for students seeking education." },
-          { html: "  004 &middot; <b>BMC InnovateX</b> — national-level hackathon platform, organized + built." },
-          { html: "  005 &middot; <b>Kinmel Bakas</b> — all-in-one e-commerce storefront with CMS + POS." },
+          { html: "  001 &middot; <b>Find Your Fellow</b>: social discovery platform with host-approval workflows." },
+          { html: "  002 &middot; <b>Surface Kit</b>: premium WordPress plugin toolkit with a React admin dashboard." },
+          { html: "  003 &middot; <b>Hamro Admission</b>: B2C admissions platform for students seeking education." },
+          { html: "  004 &middot; <b>BMC InnovateX</b>: national-level hackathon platform, organized + built." },
+          { html: "  005 &middot; <b>Kinmel Bakas</b>: all-in-one e-commerce storefront with CMS + POS." },
           { html: " " },
           { html: '<span class="sys">use `open work` to scroll there. more on file at sanchit.pro.</span>' },
         ]);
@@ -153,9 +153,9 @@ export function Terminal() {
         }).format(new Date());
         return typewrite([
           { html: `<span class="sys">now &middot; ${ts} NPT</span>` },
-          { html: "· shipping  <b>Hamro Admission v2</b> — reviewer dashboard, 62% to cut" },
+          { html: "· shipping  <b>Hamro Admission v2</b>: reviewer dashboard, 62% to cut" },
           { html: "· reading   <b>Designing Data-Intensive Applications</b>, p.214 (ch. 9)" },
-          { html: "· listening <b>Late-night Tabla &amp; Bass</b> — focus mix" },
+          { html: "· listening <b>Late-night Tabla &amp; Bass</b>: focus mix" },
           { html: "· organising <b>WordCamp Nepal</b> + CSIT Association events" },
           { html: "· brewing   ☕ cup 2 of 3" },
         ]);
@@ -499,11 +499,11 @@ export function Terminal() {
     <section
       className="term-sec"
       id="terminal"
-      data-screen-label="06 Terminal"
+      data-screen-label="09 Terminal"
     >
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§05</b> &middot; Live Terminal
+          <b>§08</b> &middot; Live Terminal
         </div>
         <div className="title">
           Talk to me <em>through</em> a CLI.

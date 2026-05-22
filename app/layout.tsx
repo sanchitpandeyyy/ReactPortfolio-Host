@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sanchitpandey.com.np"),
-  title: "Sanchit Pandey — Full-Stack Developer",
+  title: "Sanchit Pandey · Full-Stack Developer",
   description:
     "Sanchit Pandey · Full-stack engineer based in Butwal, Nepal. Shipping web platforms, e-commerce, and community products with Next.js, TypeScript, and Postgres.",
   authors: [{ name: "Sanchit Pandey" }],
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "WordCamp Nepal",
   ],
   openGraph: {
-    title: "Sanchit Pandey — Full-Stack Developer",
+    title: "Sanchit Pandey · Full-Stack Developer",
     description:
       "Full-stack engineer based in Butwal, Nepal. A one-person studio that ships software.",
     url: "https://sanchitpandey.com.np",

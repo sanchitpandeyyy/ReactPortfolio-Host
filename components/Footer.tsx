@@ -56,7 +56,7 @@ export function SiteFooter() {
         <br />
         <br />
         <span>
-          © <b style={{ color: "var(--ink)" }}>MMXXVI</b> — Sanchit Pandey ·
+          © <b style={{ color: "var(--ink)" }}>MMXXVI</b> · Sanchit Pandey ·
           Butwal, Rupandehi (UTC+5:45).
         </span>
       </div>

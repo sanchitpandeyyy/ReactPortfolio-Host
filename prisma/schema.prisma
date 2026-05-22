@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  num         String
+  year        String
+  category    String
+  title       String
+  titleEm     String?
+  titleSuffix String?
+  desc        String
+  stackBold   String
+  stackRest   String?
+  variant     String   @default("wide")
+  href        String   @default("")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id        String   @id @default(cuid())
+  period    String
+  role      String
+  org       String
+  place     String
+  summary   String
+  tags      String[]
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Community {
+  id        String   @id @default(cuid())
+  role      String
+  org       String
+  place     String
+  body      String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WeekItem {
+  id        String   @id @default(cuid())
+  label     String
+  title     String
+  detail    String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String
+  category  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
