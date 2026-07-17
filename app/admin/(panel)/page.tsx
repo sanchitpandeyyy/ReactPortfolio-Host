@@ -6,7 +6,7 @@ import { getAnalytics } from "@/lib/content";
 export const dynamic = "force-dynamic";
 
 export default async function AdminOverview() {
-  const [projects, experience, community, week, posts, analytics] =
+  const [projects, experience, community, week, posts, analytics, messages, unread] =
     await Promise.all([
       prisma.project.count(),
       prisma.experience.count(),
@@ -14,6 +14,8 @@ export default async function AdminOverview() {
       prisma.weekItem.count(),
       getAllPosts(),
       getAnalytics(),
+      prisma.contactMessage.count(),
+      prisma.contactMessage.count({ where: { read: false } }),
     ]);
 
   const traffic = [
@@ -69,6 +71,12 @@ export default async function AdminOverview() {
       label: "Notes",
       count: posts.length,
       hint: "Blog posts (read-only)",
+    },
+    {
+      href: "/admin/messages",
+      label: "Messages",
+      count: messages,
+      hint: unread > 0 ? `${unread} unread` : "All read",
     },
   ];
 

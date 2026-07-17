@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getCommunityItems } from "@/lib/content";
 
 export async function Community() {
@@ -8,7 +9,7 @@ export async function Community() {
     <section className="comm-sec" id="community" data-screen-label="06 Community">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§05</b> &middot; Community
+          Community
         </div>
         <div className="title">
           Building the <em>scene</em> at home.
@@ -37,6 +38,15 @@ export async function Community() {
                 <h3 className="comm-org">{c.org}</h3>
                 <div className="comm-place">{c.place}</div>
                 <p className="comm-body">{c.body}</p>
+                {c.slug && (
+                  <Link
+                    href={`/community/${c.slug}`}
+                    className="comm-view"
+                    aria-label={`View ${c.org} in detail`}
+                  >
+                    View <span aria-hidden="true">→</span>
+                  </Link>
+                )}
               </div>
             </article>
           </div>

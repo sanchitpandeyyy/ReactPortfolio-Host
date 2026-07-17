@@ -12,7 +12,7 @@ export function NotesHeader() {
       <nav className="np-nav-links">
         <Link href="/notes">Notes</Link>
         <Link href="/#work">Work</Link>
-        <Link href="/#terminal" className="np-nav-cta">
+        <Link href="/contact" className="np-nav-cta">
           Get in touch
         </Link>
       </nav>

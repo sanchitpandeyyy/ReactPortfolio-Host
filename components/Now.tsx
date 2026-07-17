@@ -9,7 +9,7 @@ export async function Now() {
     <section className="now-sec" id="now" data-screen-label="07 Now">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§06</b> &middot; Now
+          Now
         </div>
         <div className="title">
           What I&apos;m <em>doing</em> this week.

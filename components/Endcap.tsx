@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function Endcap() {
   return (
     <section className="endcap" data-screen-label="10 Endcap">
@@ -8,9 +10,9 @@ export function Endcap() {
         <br />
         something good.
         <br />
-        <span className="hl">
+        <Link href="/contact" className="hl">
           <span className="arr">→</span> Say hi
-        </span>
+        </Link>
       </h2>
       <div className="endcap-row" data-reveal>
         <div>
@@ -22,9 +24,9 @@ export function Endcap() {
             replies within 24h on weekdays
           </span>
         </div>
-        <a className="endcap-cta" href="mailto:mail@sanchit.pro">
+        <Link className="endcap-cta" href="/contact">
           Get in touch <span>↗</span>
-        </a>
+        </Link>
       </div>
     </section>
   );

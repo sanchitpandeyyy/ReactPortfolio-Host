@@ -43,7 +43,7 @@ export function About() {
     <section className="about" id="about" data-screen-label="02 About">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§01</b> &middot; Operating Theory
+          Operating Theory
         </div>
         <div className="title">
           About <em>in three breaths.</em>

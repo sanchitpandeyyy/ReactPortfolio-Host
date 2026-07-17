@@ -42,7 +42,7 @@ export function Skills() {
     <section className="skills-sec" id="skills" data-screen-label="04 Skills">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§03</b> &middot; Toolkit
+          Toolkit
         </div>
         <div className="title">
           What I <em>build</em> with.

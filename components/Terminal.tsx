@@ -16,6 +16,7 @@ const QUICK = [
   "stack",
   "now",
   "contact",
+  "hi",
   "resume",
   "theme",
   "clear",
@@ -93,6 +94,7 @@ export function Terminal() {
           { html: '  <span class="kw">stack</span>      &middot; tools I reach for', delay: 30 },
           { html: '  <span class="kw">now</span>        &middot; what I\'m up to this week', delay: 30 },
           { html: '  <span class="kw">contact</span>    &middot; email, socials, mailto', delay: 30 },
+          { html: '  <span class="kw">hi</span>         &middot; open the contact page and say hi', delay: 30 },
           { html: '  <span class="kw">resume</span>     &middot; open the pdf', delay: 30 },
           { html: '  <span class="kw">open</span> &lt;n&gt;    &middot; jump to section (about · work · now · notes · terminal)', delay: 30 },
           { html: '  <span class="kw">theme</span> [light|dark]  &middot; switch terminal theme', delay: 30 },
@@ -169,9 +171,17 @@ export function Terminal() {
           { html: 'gh     &middot; <a href="https://github.com/sanchitpandeyyy" target="_blank" rel="noopener">github.com/sanchitpandeyyy</a>' },
           { html: 'linked &middot; <a href="https://www.linkedin.com/in/sanchitpandeyyy/" target="_blank" rel="noopener">linkedin.com/in/sanchitpandeyyy</a>' },
           { html: 'insta  &middot; <a href="https://www.instagram.com/sanchitpandeyyy/" target="_blank" rel="noopener">instagram.com/sanchitpandeyyy</a>' },
+          { html: 'form   &middot; <a href="/contact">sanchitpandey.com.np/contact</a> — or just type <span class="kw">hi</span>' },
           { html: " " },
           { html: '<span class="ok">tip: I read every email. response &lt; 24h on weekdays (NPT).</span>' },
         ]);
+      },
+
+      async hi() {
+        await typewrite([
+          { html: '<span class="sys">nice. opening the contact page…</span>', delay: 500 },
+        ]);
+        window.location.assign("/contact");
       },
 
       async resume() {
@@ -503,7 +513,7 @@ export function Terminal() {
     >
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§08</b> &middot; Live Terminal
+          Live Terminal
         </div>
         <div className="title">
           Talk to me <em>through</em> a CLI.

@@ -1,5 +1,5 @@
 import type { Community } from "@prisma/client";
-import { Field, Area } from "@/components/admin-ui";
+import { Field, Area, ImagesField } from "@/components/admin-ui";
 
 export function CommunityFields({ item }: { item?: Community }) {
   return (
@@ -8,8 +8,17 @@ export function CommunityFields({ item }: { item?: Community }) {
       <Field name="order" label="Order" type="number" defaultValue={item?.order ?? 0} />
       <Field name="org" label="Organization" defaultValue={item?.org} required />
       <Field name="place" label="Place / context" defaultValue={item?.place} required />
+      <Field
+        name="slug"
+        label="Slug (auto from organization if empty)"
+        defaultValue={item?.slug}
+        placeholder="csit-association-of-bmc"
+      />
       <div className="sm:col-span-2">
         <Area name="body" label="Description" defaultValue={item?.body} required />
+      </div>
+      <div className="sm:col-span-2">
+        <ImagesField images={item?.images} label="Community photos" />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export async function Notes() {
     <section className="notes-sec" id="notes" data-screen-label="08 Notes">
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§07</b> &middot; Field Notes
+          Field Notes
         </div>
         <div className="title">
           Things I&apos;m <em>thinking</em> about.

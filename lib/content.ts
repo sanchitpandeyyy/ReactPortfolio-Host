@@ -32,6 +32,18 @@ export async function getWeekItem(id: string) {
   return prisma.weekItem.findUnique({ where: { id } });
 }
 
+export async function getProjectBySlug(slug: string) {
+  return prisma.project.findUnique({ where: { slug } });
+}
+
+export async function getCommunityBySlug(slug: string) {
+  return prisma.community.findUnique({ where: { slug } });
+}
+
+export async function getMessages() {
+  return prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" } });
+}
+
 export async function getSiteSeo() {
   return prisma.siteSeo.findUnique({ where: { id: "main" } });
 }

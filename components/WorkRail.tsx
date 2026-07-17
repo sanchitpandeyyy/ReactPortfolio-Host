@@ -97,7 +97,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
       <div className="work-head" data-reveal>
         <div className="sec-head">
           <div className="idx">
-            <b>§04</b> &middot; Selected Work
+            Selected Work
           </div>
           <div className="title">
             Things I&apos;ve <em>shipped</em>, recent first.
@@ -138,15 +138,25 @@ export function WorkRail({ projects }: { projects: Project[] }) {
                     </>
                   )}
                 </div>
-                <a
-                  href={p.href || "#"}
-                  className="arr"
-                  aria-label={`Open ${p.title} case study`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  ↗
-                </a>
+                {p.slug ? (
+                  <a
+                    href={`/projects/${p.slug}`}
+                    className="arr"
+                    aria-label={`View ${p.title} case study`}
+                  >
+                    →
+                  </a>
+                ) : (
+                  <a
+                    href={p.href || "#"}
+                    className="arr"
+                    aria-label={`Open ${p.title} case study`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ↗
+                  </a>
+                )}
               </div>
             </article>
           ))}
@@ -154,7 +164,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
 
         <div className="pin-progress" aria-hidden="true">
           <span>
-            <b>§04</b> · Work
+            Work
           </span>
           <div className="track">
             <i ref={progressRef} />

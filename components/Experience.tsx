@@ -12,7 +12,7 @@ export async function Experience() {
     >
       <div className="sec-head" data-reveal>
         <div className="idx">
-          <b>§02</b> &middot; Experience
+          Experience
         </div>
         <div className="title">
           Where I&apos;ve <em>worked</em>.

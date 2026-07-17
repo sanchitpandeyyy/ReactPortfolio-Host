@@ -82,6 +82,46 @@ export function Select({
   );
 }
 
+/** Existing photos with remove checkboxes, plus a multi-file upload input. */
+export function ImagesField({
+  images = [],
+  label = "Photos",
+}: {
+  images?: string[];
+  label?: string;
+}) {
+  return (
+    <div className="adm-field">
+      <span className="adm-label">{label}</span>
+      {images.length > 0 && (
+        <div className="adm-img-grid">
+          {images.map((src) => (
+            <label key={src} className="adm-img-item">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" />
+              <span className="adm-img-remove">
+                <input type="checkbox" name="removeImage" value={src} />
+                Remove
+              </span>
+            </label>
+          ))}
+        </div>
+      )}
+      <input
+        type="file"
+        name="newImages"
+        accept="image/*"
+        multiple
+        className="adm-input adm-file"
+      />
+      <span className="adm-field-hint">
+        Upload one or more images. Tick “Remove” on a photo to delete it when
+        you save.
+      </span>
+    </div>
+  );
+}
+
 type Action = (formData: FormData) => Promise<void>;
 
 /** Shared form shell for both the "new" and "[id]" edit pages of a section. */
@@ -100,23 +140,28 @@ export function EntityForm({
 }) {
   return (
     <div className="adm-card">
-      <form action={saveAction}>
+      <form action={saveAction} id="entity-form">
         {id && <input type="hidden" name="id" value={id} />}
         {children}
-        <div className="adm-actions-row">
-          <button className="adm-submit">{id ? "Save changes" : "Add"}</button>
-          <Link href={backHref} className="adm-ghost">
-            Cancel
-          </Link>
-          {id && deleteAction && (
-            <ConfirmDeleteForm
-              id={id}
-              action={deleteAction}
-              className="adm-delete adm-delete-inline"
-            />
-          )}
-        </div>
       </form>
+      {/* Kept outside the save form: the delete button is its own <form>,
+          and forms can't be nested. The submit button targets the save form
+          via the `form` attribute. */}
+      <div className="adm-actions-row">
+        <button className="adm-submit" form="entity-form">
+          {id ? "Save changes" : "Add"}
+        </button>
+        <Link href={backHref} className="adm-ghost">
+          Cancel
+        </Link>
+        {id && deleteAction && (
+          <ConfirmDeleteForm
+            id={id}
+            action={deleteAction}
+            className="adm-delete adm-delete-inline"
+          />
+        )}
+      </div>
     </div>
   );
 }
