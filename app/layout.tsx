@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
+import { getSiteSeo } from "@/lib/content";
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://sanchitpandey.com.np"),
+const defaults = {
   title: "Sanchit Pandey · Full-Stack Developer",
   description:
     "Sanchit Pandey · Full-stack engineer based in Butwal, Nepal. Shipping web platforms, e-commerce, and community products with Next.js, TypeScript, and Postgres.",
-  authors: [{ name: "Sanchit Pandey" }],
   keywords: [
     "Sanchit Pandey",
     "Full-Stack Developer",
@@ -17,17 +17,39 @@ export const metadata: Metadata = {
     "CSIT Association of BMC",
     "WordCamp Nepal",
   ],
-  openGraph: {
-    title: "Sanchit Pandey · Full-Stack Developer",
-    description:
-      "Full-stack engineer based in Butwal, Nepal. A one-person studio that ships software.",
-    url: "https://sanchitpandey.com.np",
-    siteName: "Sanchit Pandey",
-    locale: "en_US",
-    type: "website",
-  },
-  robots: { index: true, follow: true },
+  ogTitle: "Sanchit Pandey · Full-Stack Developer",
+  ogDescription:
+    "Full-stack engineer based in Butwal, Nepal. A one-person studio that ships software.",
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  let seo = null;
+  try {
+    seo = await getSiteSeo();
+  } catch {
+    // DB unavailable (e.g. at build time) — fall back to defaults.
+  }
+
+  const title = seo?.title || defaults.title;
+  const description = seo?.description || defaults.description;
+
+  return {
+    metadataBase: new URL("https://sanchitpandey.com.np"),
+    title,
+    description,
+    authors: [{ name: "Sanchit Pandey" }],
+    keywords: seo?.keywords?.length ? seo.keywords : defaults.keywords,
+    openGraph: {
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+      url: "https://sanchitpandey.com.np",
+      siteName: "Sanchit Pandey",
+      locale: "en_US",
+      type: "website",
+    },
+    robots: { index: true, follow: true },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -54,7 +76,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

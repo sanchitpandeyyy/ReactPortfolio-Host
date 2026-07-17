@@ -59,6 +59,30 @@ model WeekItem {
   updatedAt DateTime @updatedAt
 }
 
+model DailyStat {
+  id       String @id @default(cuid())
+  day      String @unique // YYYY-MM-DD (UTC)
+  views    Int    @default(0)
+  visitors Int    @default(0)
+}
+
+model ClickStat {
+  id        String   @id @default(cuid())
+  target    String   @unique
+  count     Int      @default(0)
+  updatedAt DateTime @updatedAt
+}
+
+model SiteSeo {
+  id            String   @id @default("main")
+  title         String
+  description   String
+  keywords      String[]
+  ogTitle       String?
+  ogDescription String?
+  updatedAt     DateTime @updatedAt
+}
+
 model Skill {
   id        String   @id @default(cuid())
   name      String

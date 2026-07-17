@@ -63,6 +63,7 @@ export async function deleteProject(formData: FormData) {
   await prisma.project.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
   revalidatePath("/admin/projects");
+  redirect("/admin/projects");
 }
 
 /* ---- Experience ---- */
@@ -92,6 +93,7 @@ export async function deleteExperience(formData: FormData) {
   await prisma.experience.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
   revalidatePath("/admin/experience");
+  redirect("/admin/experience");
 }
 
 /* ---- Community ---- */
@@ -116,6 +118,7 @@ export async function deleteCommunity(formData: FormData) {
   await prisma.community.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
   revalidatePath("/admin/community");
+  redirect("/admin/community");
 }
 
 /* ---- This Week ---- */
@@ -139,4 +142,27 @@ export async function deleteWeekItem(formData: FormData) {
   await prisma.weekItem.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
   revalidatePath("/admin/week");
+  redirect("/admin/week");
+}
+
+/* ---- SEO ---- */
+export async function saveSeo(formData: FormData) {
+  await guard();
+  const data = {
+    title: str(formData.get("title")),
+    description: str(formData.get("description")),
+    keywords: str(formData.get("keywords"))
+      .split(",")
+      .map((k) => k.trim())
+      .filter(Boolean),
+    ogTitle: orNull(formData.get("ogTitle")),
+    ogDescription: orNull(formData.get("ogDescription")),
+  };
+  await prisma.siteSeo.upsert({
+    where: { id: "main" },
+    create: { id: "main", ...data },
+    update: data,
+  });
+  revalidatePath("/");
+  redirect("/admin/seo");
 }

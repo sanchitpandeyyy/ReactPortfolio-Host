@@ -6,21 +6,21 @@ const prisma = new PrismaClient();
 // Experience starts as placeholders — edit these in /admin/experience.
 const experiences = [
   {
-    period: "20XX → Present",
-    role: "Your Role Title",
-    org: "Company or Organization",
-    place: "Butwal, Nepal · Full-time",
+    period: "Aug 2025 → Present",
+    role: "Web Developer",
+    org: "DearHive Technologies",
+    place: "Butwal, Nepal ",
     summary:
       "One or two lines on what you owned here, what you shipped, and the impact you had. Replace this placeholder in the admin panel.",
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
+    tags: ["Next.js", "TypeScript", "WordPress Plugin Development", "PostgreSQL"],
   },
   {
-    period: "20XX → 20XX",
-    role: "Your Role Title",
-    org: "Company or Organization",
-    place: "Location · Contract",
+    period: " Feb 2025 → Aug 2025",
+    role: "Full Stack Web Developer",
+    org: "AMCNSS Innovation Pvt. Ltd.",
+    place: "Dang, Nepal",
     summary:
-      "Placeholder summary. Swap in the real responsibilities and results for this role from /admin/experience.",
+      "Built and maintained web applications, including a custom CMS for managing content and user interactions. Implemented responsive designs and optimized performance across various devices.",
     tags: ["React", "Node.js"],
   },
   {

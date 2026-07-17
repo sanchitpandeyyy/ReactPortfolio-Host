@@ -10,6 +10,7 @@ const items = [
   { href: "/admin/community", label: "Community" },
   { href: "/admin/week", label: "This Week" },
   { href: "/admin/notes", label: "Notes" },
+  { href: "/admin/seo", label: "SEO" },
 ];
 
 export function AdminNav() {

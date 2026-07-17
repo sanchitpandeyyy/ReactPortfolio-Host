@@ -241,7 +241,7 @@ img { display: block; max-width: 100%; }
 .verb {
   display: inline-block;
   position: relative;
-  min-width: 4.6ch;
+  width: 9.6ch;
   text-align: left;
 }
 .verb .ch {
@@ -295,14 +295,23 @@ img { display: block; max-width: 100%; }
 .meta-block {
   font-family: var(--f-mono);
   font-size: 11px;
-  display: grid;
-  grid-template-columns: 70px 1fr;
-  gap: 4px 16px;
+  display: flex;
+  gap: 32px;
   color: var(--ink-2);
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
+.meta-item:first-child {
+  padding-left: 0;
+  border-left: none;
 }
 .meta-block .label { color: var(--mute); text-transform: uppercase; letter-spacing: 0.06em; }
 .meta-block b { font-weight: 500; }
-.meta-block .row { display: contents; }
 
 /* =========================================================
    MARQUEE
@@ -1407,7 +1416,7 @@ img { display: block; max-width: 100%; }
   padding: 40px var(--pad-x) 80px;
   border-top: 1px solid var(--line);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 40px;
   font-family: var(--f-mono);
   font-size: 11.5px;
@@ -1821,7 +1830,101 @@ img { display: block; max-width: 100%; }
   transition: color 0.2s;
 }
 .adm-delete:hover { color: var(--pop); }
+.adm-delete-inline { margin-left: auto; }
 .adm-empty { font-size: 14px; color: var(--mute); padding: 6px 0; }
+
+/* --- list toolbar + new-item button --- */
+.adm-table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.adm-table-count {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+}
+.adm-new-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 999px;
+  padding: 10px 18px;
+  transition: background 0.25s var(--ease-snap);
+}
+.adm-new-btn:hover { background: var(--ink-2); }
+
+/* --- data table --- */
+.adm-table-wrap {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: auto;
+  background: var(--paper-card);
+}
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.adm-table th {
+  text-align: left;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.adm-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-2);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.adm-table tr:last-child td { border-bottom: none; }
+.adm-table tbody tr { transition: background 0.15s; }
+.adm-table tbody tr:hover { background: rgba(10, 10, 10, 0.03); }
+.adm-table-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.adm-table-edit {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 5px 13px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.adm-table-edit:hover { border-color: var(--ink); background: var(--lime); }
+.adm-table-delete {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--mute);
+  transition: color 0.2s;
+}
+.adm-table-delete:hover { color: var(--pop); }
+
+@media (max-width: 640px) {
+  .adm-table th, .adm-table td { padding: 12px 14px; }
+}
 
 /* --- login --- */
 .adm-login {

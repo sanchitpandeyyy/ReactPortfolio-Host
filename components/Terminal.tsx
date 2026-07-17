@@ -164,7 +164,7 @@ export function Terminal() {
       async contact() {
         await typewrite([
           { html: '<span class="sys">opening contact channels…</span>', delay: 200 },
-          { html: 'email  &middot; <a href="mailto:admin@sanchitpandey.com.np?subject=Hello%20from%20your%20portfolio&body=Hi%20Sanchit%2C%0A%0A">admin@sanchitpandey.com.np</a>' },
+          { html: 'email  &middot; <a href="mailto:mail@sanchit.pro?subject=Hello%20from%20your%20portfolio&body=Hi%20Sanchit%2C%0A%0A">mail@sanchit.pro</a>' },
           { html: 'phone  &middot; <a href="tel:+9779841148149">+977 9841148149</a>' },
           { html: 'gh     &middot; <a href="https://github.com/sanchitpandeyyy" target="_blank" rel="noopener">github.com/sanchitpandeyyy</a>' },
           { html: 'linked &middot; <a href="https://www.linkedin.com/in/sanchitpandeyyy/" target="_blank" rel="noopener">linkedin.com/in/sanchitpandeyyy</a>' },

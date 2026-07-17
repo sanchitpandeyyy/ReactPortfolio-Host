@@ -17,12 +17,12 @@ export function Endcap() {
           <div style={{ color: "var(--mute)", marginBottom: 6 }}>
             Or take the short route
           </div>
-          <b>admin@sanchitpandey.com.np</b> &middot;{" "}
+          <b>mail@sanchit.pro</b> &middot;{" "}
           <span style={{ color: "var(--mute)" }}>
             replies within 24h on weekdays
           </span>
         </div>
-        <a className="endcap-cta" href="mailto:admin@sanchitpandey.com.np">
+        <a className="endcap-cta" href="mailto:mail@sanchit.pro">
           Get in touch <span>↗</span>
         </a>
       </div>

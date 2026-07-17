@@ -2,9 +2,21 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const VERBS = ["ships", "designs", "writes", "teaches", "organises"];
+const VERBS = ["ships", "designs", "writes", "teaches", "codes", "creates"];
+const VERB_WIDTH_CH = Math.max(...VERBS.map((v) => v.length)) - 1.5;
+
+const CAREER_START = new Date(2023, 5, 1); // June 2023
+
+function getYearsOfExperience(): number {
+  const now = new Date();
+  let years = now.getFullYear() - CAREER_START.getFullYear();
+  const monthDiff = now.getMonth() - CAREER_START.getMonth();
+  if (monthDiff < 0) years--;
+  return Math.max(years, 1);
+}
 
 export function Hero() {
+  const yearsOfExperience = getYearsOfExperience();
   const verbRef = useRef<HTMLSpanElement>(null);
   const [verbIndex, setVerbIndex] = useState(0);
 
@@ -64,7 +76,13 @@ export function Hero() {
           <span className="word" data-word>
             <span className="verb-wrap">
               <span className="bracket">[</span>
-              <span className="verb" id="verb" ref={verbRef} aria-live="polite">
+              <span
+                className="verb"
+                id="verb"
+                ref={verbRef}
+                aria-live="polite"
+                style={{ width: `${VERB_WIDTH_CH}ch` }}
+              >
                 ships
               </span>
               <span className="bracket">]</span>
@@ -76,27 +94,21 @@ export function Hero() {
 
       <div className="hero-foot" data-reveal>
         <p className="hero-blurb">
-          <b>Full-stack developer</b> from Butwal, Nepal. I build{" "}
-          <span className="mark">web apps</span>, e-commerce stores, and
-          community tools. Currently president of the CSIT Association at BMC,
-          and helping organize WordCamp Nepal.
+          <b>Full-stack developer</b> based in Butwal, Nepal, with{" "}
+          <span className="mark">{yearsOfExperience}+ years</span> of
+          hands-on experience across the stack backend systems, APIs,
+          databases, and frontend engineering. Also an active developer
+          community and tech community contributor.
         </p>
 
-        <div className="meta-block" aria-label="Now">
-          <div className="row">
-            <span className="label">Now</span>
-            <b>
-              Shipping <span style={{ color: "var(--lime-deep)" }}>●</span>{" "}
-              Hamro Admission
-            </b>
-          </div>
-          <div className="row">
+        <div className="meta-block" aria-label="Details">
+          <div className="meta-item">
             <span className="label">Stack</span>
-            <b>Next.js · TypeScript · Prisma · Postgres</b>
+            <b>Next.js | TypeScript | Prisma | Postgres</b>
           </div>
-          <div className="row">
+          <div className="meta-item">
             <span className="label">Based</span>
-            <b>Butwal · Rupandehi, NP</b>
+            <b>Butwal | Rupandehi, NP</b>
           </div>
         </div>
       </div>

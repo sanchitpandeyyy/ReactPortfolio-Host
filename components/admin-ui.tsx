@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { ConfirmDeleteForm } from "@/components/ConfirmDeleteForm";
 
 export function Field({
   name,
@@ -82,55 +84,98 @@ export function Select({
 
 type Action = (formData: FormData) => Promise<void>;
 
-export function CreateCard({
-  title,
-  saveAction,
-  children,
-}: {
-  title: string;
-  saveAction: Action;
-  children: ReactNode;
-}) {
-  return (
-    <form action={saveAction} className="adm-card-add">
-      <div className="adm-card-add-title">{title}</div>
-      {children}
-      <div className="adm-actions-row">
-        <button className="adm-submit">Add</button>
-      </div>
-    </form>
-  );
-}
-
-export function ItemCard({
+/** Shared form shell for both the "new" and "[id]" edit pages of a section. */
+export function EntityForm({
   id,
-  title,
   saveAction,
   deleteAction,
+  backHref,
   children,
 }: {
-  id: string;
-  title: string;
+  id?: string;
   saveAction: Action;
-  deleteAction: Action;
+  deleteAction?: Action;
+  backHref: string;
   children: ReactNode;
 }) {
   return (
     <div className="adm-card">
-      <div className="adm-card-head">
-        <span className="adm-card-title">{title}</span>
-        <form action={deleteAction}>
-          <input type="hidden" name="id" value={id} />
-          <button className="adm-delete">Delete</button>
-        </form>
-      </div>
       <form action={saveAction}>
-        <input type="hidden" name="id" value={id} />
+        {id && <input type="hidden" name="id" value={id} />}
         {children}
         <div className="adm-actions-row">
-          <button className="adm-submit">Save changes</button>
+          <button className="adm-submit">{id ? "Save changes" : "Add"}</button>
+          <Link href={backHref} className="adm-ghost">
+            Cancel
+          </Link>
+          {id && deleteAction && (
+            <ConfirmDeleteForm
+              id={id}
+              action={deleteAction}
+              className="adm-delete adm-delete-inline"
+            />
+          )}
         </div>
       </form>
+    </div>
+  );
+}
+
+export interface AdminTableColumn<T> {
+  label: string;
+  render: (item: T) => ReactNode;
+  className?: string;
+}
+
+/** Compact table listing for a section, linking out to per-item edit pages. */
+export function AdminTable<T extends { id: string }>({
+  columns,
+  items,
+  editHref,
+  deleteAction,
+  emptyLabel,
+}: {
+  columns: AdminTableColumn<T>[];
+  items: T[];
+  editHref: (item: T) => string;
+  deleteAction: Action;
+  emptyLabel: string;
+}) {
+  if (items.length === 0) {
+    return <p className="adm-empty">{emptyLabel}</p>;
+  }
+
+  return (
+    <div className="adm-table-wrap">
+      <table className="adm-table">
+        <thead>
+          <tr>
+            {columns.map((c) => (
+              <th key={c.label} className={c.className}>
+                {c.label}
+              </th>
+            ))}
+            <th className="adm-table-actions-head">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.id}>
+              {columns.map((c) => (
+                <td key={c.label} className={c.className}>
+                  {c.render(item)}
+                </td>
+              ))}
+              <td className="adm-table-actions">
+                <Link href={editHref(item)} className="adm-table-edit">
+                  Edit
+                </Link>
+                <ConfirmDeleteForm id={item.id} action={deleteAction} />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

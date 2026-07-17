@@ -1,23 +1,9 @@
-import type { Community } from "@prisma/client";
+import Link from "next/link";
 import { getCommunityItems } from "@/lib/content";
-import { saveCommunity, deleteCommunity } from "@/lib/admin-actions";
-import { Field, Area, CreateCard, ItemCard } from "@/components/admin-ui";
+import { deleteCommunity } from "@/lib/admin-actions";
+import { AdminTable } from "@/components/admin-ui";
 
 export const dynamic = "force-dynamic";
-
-function CommunityFields({ item }: { item?: Community }) {
-  return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      <Field name="role" label="Role" defaultValue={item?.role} placeholder="President" required />
-      <Field name="order" label="Order" type="number" defaultValue={item?.order ?? 0} />
-      <Field name="org" label="Organization" defaultValue={item?.org} required />
-      <Field name="place" label="Place / context" defaultValue={item?.place} required />
-      <div className="sm:col-span-2">
-        <Area name="body" label="Description" defaultValue={item?.body} required />
-      </div>
-    </div>
-  );
-}
 
 export default async function CommunityAdmin() {
   const items = await getCommunityItems();
@@ -32,26 +18,27 @@ export default async function CommunityAdmin() {
         </p>
       </header>
 
-      <CreateCard title="Add a community role" saveAction={saveCommunity}>
-        <CommunityFields />
-      </CreateCard>
-
-      <div className="space-y-4">
-        {items.length === 0 && (
-          <p className="adm-empty">No community items yet.</p>
-        )}
-        {items.map((item) => (
-          <ItemCard
-            key={item.id}
-            id={item.id}
-            title={`${item.role} · ${item.org}`}
-            saveAction={saveCommunity}
-            deleteAction={deleteCommunity}
-          >
-            <CommunityFields item={item} />
-          </ItemCard>
-        ))}
+      <div className="adm-table-toolbar">
+        <span className="adm-table-count">
+          {items.length} {items.length === 1 ? "item" : "items"}
+        </span>
+        <Link href="/admin/community/new" className="adm-new-btn">
+          + New community role
+        </Link>
       </div>
+
+      <AdminTable
+        items={items}
+        emptyLabel="No community items yet."
+        editHref={(item) => `/admin/community/${item.id}`}
+        deleteAction={deleteCommunity}
+        columns={[
+          { label: "Role", render: (i) => i.role },
+          { label: "Org", render: (i) => i.org },
+          { label: "Place", render: (i) => i.place },
+          { label: "Order", render: (i) => i.order },
+        ]}
+      />
     </div>
   );
 }

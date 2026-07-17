@@ -1,17 +1,43 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { getAllPosts } from "@/lib/notes";
+import { getAnalytics } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminOverview() {
-  const [projects, experience, community, week, posts] = await Promise.all([
-    prisma.project.count(),
-    prisma.experience.count(),
-    prisma.community.count(),
-    prisma.weekItem.count(),
-    getAllPosts(),
-  ]);
+  const [projects, experience, community, week, posts, analytics] =
+    await Promise.all([
+      prisma.project.count(),
+      prisma.experience.count(),
+      prisma.community.count(),
+      prisma.weekItem.count(),
+      getAllPosts(),
+      getAnalytics(),
+    ]);
+
+  const traffic = [
+    {
+      label: "Visitors today",
+      count: analytics.today.visitors,
+      hint: `${analytics.today.views} page views today`,
+    },
+    {
+      label: "Visitors, 7 days",
+      count: analytics.week.visitors,
+      hint: `${analytics.week.views} page views this week`,
+    },
+    {
+      label: "Visitors, all time",
+      count: analytics.allTime.visitors,
+      hint: `${analytics.allTime.views} page views total`,
+    },
+    {
+      label: "Link clicks",
+      count: analytics.clicks,
+      hint: "Outbound links clicked on the site",
+    },
+  ];
 
   const stats = [
     {
@@ -65,6 +91,43 @@ export default async function AdminOverview() {
           portfolio.
         </p>
       </header>
+
+      <div className="adm-section">Traffic</div>
+      <div className="adm-stats">
+        {traffic.map((t) => (
+          <div key={t.label} className="adm-stat">
+            <div className="adm-stat-num">
+              {String(t.count).padStart(2, "0")}
+            </div>
+            <div className="adm-stat-label">{t.label}</div>
+            <div className="adm-stat-hint">{t.hint}</div>
+          </div>
+        ))}
+      </div>
+
+      {analytics.topClicks.length > 0 && (
+        <>
+          <div className="adm-section">Top clicked links</div>
+          <div className="adm-table-wrap">
+            <table className="adm-table">
+              <thead>
+                <tr>
+                  <th>Link</th>
+                  <th>Clicks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {analytics.topClicks.map((c) => (
+                  <tr key={c.id}>
+                    <td>{c.target}</td>
+                    <td>{c.count}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
 
       <div className="adm-section">Manage content</div>
       <div className="adm-stats">
