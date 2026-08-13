@@ -19,9 +19,7 @@ export function TopNav() {
       <a href="#community" className="link">
         Community
       </a>
-      <a href="#now" className="link">
-        Now
-      </a>
+  
       <a href="#notes" className="link">
         Writing
       </a>
