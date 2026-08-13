@@ -3,16 +3,16 @@ import { Ambience } from "@/components/Ambience";
 import { Cursor } from "@/components/Cursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { SiteFooter } from "@/components/Footer";
-import { NotesHeader } from "@/components/NotesHeader";
+import { SubpageHeader } from "@/components/SubpageHeader";
 
-/** Same chrome as the notes pages — used by contact, project, and community pages. */
+/** Shared chrome for every subpage: writing, projects, community and contact. */
 export function SubpageShell({ children }: { children: ReactNode }) {
   return (
     <>
       <Ambience />
       <Cursor />
       <SmoothScroll />
-      <NotesHeader />
+      <SubpageHeader />
       <main className="np-main">{children}</main>
       <SiteFooter />
     </>

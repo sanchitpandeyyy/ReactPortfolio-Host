@@ -23,7 +23,7 @@ export function TopNav() {
         Now
       </a>
       <a href="#notes" className="link">
-        Notes
+        Writing
       </a>
       <a href="#terminal" className="cta">
         Get in touch <span className="arr">↗</span>

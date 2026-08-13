@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
-import { getAllPosts } from "@/lib/notes";
+import { getPosts } from "@/lib/blog/client";
 import { getAnalytics } from "@/lib/content";
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ export default async function AdminOverview() {
       prisma.experience.count(),
       prisma.community.count(),
       prisma.weekItem.count(),
-      getAllPosts(),
+      getPosts({ page: 1, perPage: 50 }),
       getAnalytics(),
       prisma.contactMessage.count(),
       prisma.contactMessage.count({ where: { read: false } }),
@@ -67,10 +67,10 @@ export default async function AdminOverview() {
       hint: week === 0 ? "Now section is hidden" : "Items in the Now section",
     },
     {
-      href: "/admin/notes",
-      label: "Notes",
-      count: posts.length,
-      hint: "Blog posts (read-only)",
+      href: "/admin/writing",
+      label: "Writing",
+      count: posts.posts.length,
+      hint: "Articles distributed from blog.sanchit.pro",
     },
     {
       href: "/admin/messages",

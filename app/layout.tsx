@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Analytics } from "@/components/Analytics";
 import { getSiteSeo } from "@/lib/content";
+import { PERSON, SITE_LOCALE, SITE_NAME, absoluteUrl, siteUrl } from "@/lib/site";
 
 const defaults = {
   title: "Sanchit Pandey · Full-Stack Developer",
@@ -34,20 +35,36 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = seo?.description || defaults.description;
 
   return {
-    metadataBase: new URL("https://sanchitpandey.com.np"),
-    title,
+    metadataBase: new URL(siteUrl()),
+    title: {
+      // Subpages set a short title; the site name is appended once, here.
+      default: title,
+      template: `%s · ${PERSON.name}`,
+    },
     description,
-    authors: [{ name: "Sanchit Pandey" }],
+    applicationName: SITE_NAME,
+    authors: [{ name: PERSON.name, url: absoluteUrl("/") }],
+    creator: PERSON.name,
+    publisher: PERSON.name,
     keywords: seo?.keywords?.length ? seo.keywords : defaults.keywords,
     openGraph: {
       title: seo?.ogTitle || title,
       description: seo?.ogDescription || description,
-      url: "https://sanchitpandey.com.np",
-      siteName: "Sanchit Pandey",
-      locale: "en_US",
+      url: absoluteUrl("/"),
+      siteName: SITE_NAME,
+      locale: SITE_LOCALE,
       type: "website",
     },
-    robots: { index: true, follow: true },
+    twitter: {
+      card: "summary_large_image",
+      title: seo?.ogTitle || title,
+      description: seo?.ogDescription || description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    },
   };
 }
 
@@ -75,6 +92,14 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        {/*
+          Reveal animations start at opacity 0 and are switched on by an
+          observer. Without JavaScript that would hide the entire page, so the
+          effect is disabled outright when scripts do not run.
+        */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
       </head>
       <body>
         {children}

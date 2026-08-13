@@ -1,10 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug } from "@/lib/content";
+import { JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
 import { Gallery } from "@/components/Gallery";
+import { relatedArticles } from "@/lib/blog/relations";
+import { getProjectBySlug } from "@/lib/content";
+import { formatDate } from "@/lib/blog/format";
+import {
+  breadcrumbNode,
+  creativeWorkNode,
+  graph,
+  webPageNode,
+} from "@/lib/schema";
+import { absoluteUrl, defaultSocialImage, metaDescription } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
+
+/** Full project title, matching the visible H1. */
+function fullTitle(project: {
+  title: string;
+  titleEm: string | null;
+  titleSuffix: string | null;
+}): string {
+  return [project.title, project.titleEm, project.titleSuffix]
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+([.,])/g, "$1")
+    .trim();
+}
 
 export async function generateMetadata({
   params,
@@ -13,15 +37,35 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
-  if (!project) return { title: "Project not found · Sanchit Pandey" };
+  if (!project) {
+    return { title: "Project not found", robots: { index: false, follow: true } };
+  }
+
+  const name = fullTitle(project);
+  const description = metaDescription(project.desc);
+  const url = absoluteUrl(`/projects/${slug}`);
+  const images = project.images.length
+    ? [project.images[0]]
+    : [defaultSocialImage().url];
+
   return {
-    title: `${project.title} · Sanchit Pandey`,
-    description: project.desc,
+    title: `${name} · ${project.category}`,
+    description,
+    alternates: { canonical: url },
     openGraph: {
-      title: `${project.title} · Sanchit Pandey`,
-      description: project.desc,
-      images: project.images.length ? [project.images[0]] : undefined,
+      type: "article",
+      title: `${name} · Sanchit Pandey`,
+      description,
+      url,
+      images,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${name} · Sanchit Pandey`,
+      description,
+      images,
+    },
+    robots: { index: true, follow: true },
   };
 }
 
@@ -34,11 +78,44 @@ export default async function ProjectPage({
   const project = await getProjectBySlug(slug);
   if (!project) notFound();
 
+  const name = fullTitle(project);
+  const url = absoluteUrl(`/projects/${slug}`);
+  // Curated writing about this project, if any is distributed to the site.
+  const articles = await relatedArticles(slug);
+
   return (
     <article className="np-article dt-page">
-      <Link href="/#work" className="np-back" data-reveal>
-        <span aria-hidden="true">&larr;</span> All work
-      </Link>
+      <JsonLd
+        data={graph([
+          webPageNode({
+            url,
+            name: `${name} · Sanchit Pandey`,
+            description: metaDescription(project.desc),
+          }),
+          creativeWorkNode({
+            url,
+            name,
+            description: project.desc,
+            images: project.images,
+            keywords: [project.stackBold, project.stackRest]
+              .filter(Boolean)
+              .join(" · "),
+          }),
+          breadcrumbNode([
+            { name: "Home", url: absoluteUrl("/") },
+            { name: "Work", url: absoluteUrl("/#work") },
+            { name },
+          ]),
+        ])}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Work", href: "/#work" },
+          { name },
+        ]}
+      />
 
       <header className="np-art-head" data-reveal>
         <div className="np-eyebrow">{project.category}</div>
@@ -61,11 +138,29 @@ export default async function ProjectPage({
         </div>
       </header>
 
-      <Gallery images={project.images} alt={project.title} />
+      <Gallery images={project.images} alt={name} />
 
       <div className="np-art-body" data-reveal>
         <p>{project.desc}</p>
       </div>
+
+      {articles.length > 0 && (
+        <section className="bl-related" aria-labelledby="project-writing">
+          <h2 className="bl-related-label" id="project-writing">
+            Writing about this project
+          </h2>
+          <ul className="bl-related-list">
+            {articles.map((article) => (
+              <li key={article.slug}>
+                <Link href={`/blog/${article.slug}`} prefetch={false}>
+                  {article.title}
+                </Link>
+                <span>{formatDate(article.publishedAt)}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="dt-actions" data-reveal>
         {project.href && (

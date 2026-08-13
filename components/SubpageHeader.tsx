@@ -1,6 +1,7 @@
 import Link from "next/link";
 
-export function NotesHeader() {
+/** Sticky header for every page outside the homepage. */
+export function SubpageHeader() {
   return (
     <header className="np-nav">
       <Link href="/" className="np-nav-brand">
@@ -9,8 +10,8 @@ export function NotesHeader() {
         </span>
         Sanchit
       </Link>
-      <nav className="np-nav-links">
-        <Link href="/notes">Notes</Link>
+      <nav className="np-nav-links" aria-label="Primary">
+        <Link href="/blog">Writing</Link>
         <Link href="/#work">Work</Link>
         <Link href="/contact" className="np-nav-cta">
           Get in touch

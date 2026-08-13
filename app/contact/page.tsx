@@ -1,11 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
 import { submitContact } from "@/lib/contact-actions";
+import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
+import { absoluteUrl, defaultSocialImage } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Say hi · Sanchit Pandey",
+  title: "Say hi",
   description:
     "Get in touch with Sanchit Pandey — project inquiries, collaborations, or just to say hi.",
+  alternates: { canonical: absoluteUrl("/contact") },
+  openGraph: {
+    type: "website",
+    title: "Say hi · Sanchit Pandey",
+    description:
+      "Get in touch with Sanchit Pandey — project inquiries, collaborations, or just to say hi.",
+    url: absoluteUrl("/contact"),
+    images: [defaultSocialImage()],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default async function ContactPage({
@@ -17,9 +31,23 @@ export default async function ContactPage({
 
   return (
     <article className="np-article ct-page">
-      <Link href="/" className="np-back" data-reveal>
-        <span aria-hidden="true">&larr;</span> Back home
-      </Link>
+      <JsonLd
+        data={graph([
+          webPageNode({
+            type: "ContactPage",
+            url: absoluteUrl("/contact"),
+            name: "Contact Sanchit Pandey",
+            description:
+              "Project inquiries, collaborations, or just to say hi.",
+          }),
+          breadcrumbNode([
+            { name: "Home", url: absoluteUrl("/") },
+            { name: "Contact" },
+          ]),
+        ])}
+      />
+
+      <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Contact" }]} />
 
       <header className="np-art-head" data-reveal>
         <div className="np-eyebrow">Contact</div>

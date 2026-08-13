@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCommunityBySlug } from "@/lib/content";
+import { JsonLd } from "@/components/JsonLd";
+import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
 import { Gallery } from "@/components/Gallery";
+import { getCommunityBySlug } from "@/lib/content";
+import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
+import { absoluteUrl, defaultSocialImage, metaDescription } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -13,15 +17,34 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const item = await getCommunityBySlug(slug);
-  if (!item) return { title: "Not found · Sanchit Pandey" };
+  if (!item) {
+    return { title: "Not found", robots: { index: false, follow: true } };
+  }
+
+  const description = metaDescription(item.body);
+  const url = absoluteUrl(`/community/${slug}`);
+  const images = item.images.length
+    ? [item.images[0]]
+    : [defaultSocialImage().url];
+
   return {
-    title: `${item.org} · Sanchit Pandey`,
-    description: item.body,
+    title: `${item.org} · ${item.role}`,
+    description,
+    alternates: { canonical: url },
     openGraph: {
+      type: "article",
       title: `${item.org} · Sanchit Pandey`,
-      description: item.body,
-      images: item.images.length ? [item.images[0]] : undefined,
+      description,
+      url,
+      images,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${item.org} · Sanchit Pandey`,
+      description,
+      images,
+    },
+    robots: { index: true, follow: true },
   };
 }
 
@@ -34,11 +57,32 @@ export default async function CommunityPage({
   const item = await getCommunityBySlug(slug);
   if (!item) notFound();
 
+  const url = absoluteUrl(`/community/${slug}`);
+
   return (
     <article className="np-article dt-page">
-      <Link href="/#community" className="np-back" data-reveal>
-        <span aria-hidden="true">&larr;</span> All community work
-      </Link>
+      <JsonLd
+        data={graph([
+          webPageNode({
+            url,
+            name: `${item.org} · ${item.role}`,
+            description: metaDescription(item.body),
+          }),
+          breadcrumbNode([
+            { name: "Home", url: absoluteUrl("/") },
+            { name: "Community", url: absoluteUrl("/#community") },
+            { name: item.org },
+          ]),
+        ])}
+      />
+
+      <Breadcrumbs
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Community", href: "/#community" },
+          { name: item.org },
+        ]}
+      />
 
       <header className="np-art-head" data-reveal>
         <div className="np-eyebrow">{item.role}</div>
