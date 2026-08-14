@@ -54,7 +54,7 @@ export function About() {
       <div className="about-grid">
         <aside className="about-side" data-reveal>
           <div className="big">
-            5<em>yrs</em>
+            {new Date().getFullYear() - 2023}<em>yrs</em>
           </div>
           shipping software
           <br />
