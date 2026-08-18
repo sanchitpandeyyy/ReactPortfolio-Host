@@ -39,7 +39,11 @@ export const postTag = (slug: string) => `blog-post:${slug}`;
 
 /** Hosts allowed to serve blog imagery. Must stay in sync with the
  *  images.remotePatterns allowlist in next.config.mjs. */
-const IMAGE_HOSTS = new Set(["res.cloudinary.com", "blog.sanchit.pro"]);
+const IMAGE_HOSTS = new Set([
+  "res.cloudinary.com",
+  "blog.sanchit.pro",
+  "assets.sanchit.pro",
+]);
 
 /** CMS slugs are lowercase kebab-case; anything else is a bad request, not a
  *  lookup. Validating here keeps odd input out of the upstream URL entirely. */

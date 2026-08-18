@@ -1,4 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
+import { CalendarIcon, ClockIcon } from "@/components/icons";
 import { getLatestPosts } from "@/lib/blog/client";
 import { HOME_POSTS } from "@/lib/blog/config";
 import { categoryLabel, formatDate, isoDate, readingLabel } from "@/lib/blog/format";
@@ -37,16 +39,35 @@ export async function Writing() {
               data-reveal
               prefetch={false}
             >
+              {post.featuredImage ? (
+                <div className="note-media">
+                  <Image
+                    src={post.featuredImage}
+                    alt={post.imageAlt || ""}
+                    fill
+                    sizes="(max-width: 900px) 100vw, (max-width: 1200px) 33vw, 420px"
+                    loading="lazy"
+                  />
+                </div>
+              ) : null}
               <div className="when">
-                <time dateTime={isoDate(post.publishedAt)}>
-                  {formatDate(post.publishedAt)}
-                </time>
-                <span className="note-cat"> · {categoryLabel(post.category)}</span>
+                <span className="when-date">
+                  <CalendarIcon />
+                  <time dateTime={isoDate(post.publishedAt)}>
+                    {formatDate(post.publishedAt)}
+                  </time>
+                </span>
+                <span className="note-cat">
+                  {categoryLabel(post.category)}
+                </span>
               </div>
               <h3>{post.title}</h3>
               <p>{post.excerpt}</p>
               <div className="foot">
-                <span>{reading || "Read"}</span>
+                <span className="when-read">
+                  <ClockIcon />
+                  {reading || "Read"}
+                </span>
                 <span className="arr">&#8599;</span>
               </div>
             </Link>

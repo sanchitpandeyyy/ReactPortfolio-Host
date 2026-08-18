@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Ambience } from "@/components/Ambience";
+import { BackToTop } from "@/components/BackToTop";
 import { Cursor } from "@/components/Cursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { SiteFooter } from "@/components/Footer";
@@ -15,6 +16,7 @@ export function SubpageShell({ children }: { children: ReactNode }) {
       <SubpageHeader />
       <main className="np-main">{children}</main>
       <SiteFooter />
+      <BackToTop />
     </>
   );
 }

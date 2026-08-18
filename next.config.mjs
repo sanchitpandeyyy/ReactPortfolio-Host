@@ -11,13 +11,14 @@ const nextConfig = {
   images: {
     /**
      * Only hosts that actually serve this site's imagery: Cloudinary for
-     * project uploads and the central blog for article art. A wildcard here
-     * would turn the image optimiser into an open proxy for any URL an API
-     * response happened to contain.
+     * project uploads and the central blog (plus its asset host) for article
+     * art. A wildcard here would turn the image optimiser into an open proxy
+     * for any URL an API response happened to contain.
      */
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "blog.sanchit.pro" },
+      { protocol: "https", hostname: "assets.sanchit.pro" },
     ],
     formats: ["image/avif", "image/webp"],
   },

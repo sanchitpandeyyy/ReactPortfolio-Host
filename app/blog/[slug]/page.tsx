@@ -6,6 +6,12 @@ import { JsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
 import { CodeCopy } from "@/components/blog/CodeCopy";
 import { Toc } from "@/components/blog/Toc";
+import {
+  CalendarIcon,
+  ClockIcon,
+  ExternalIcon,
+  PencilIcon,
+} from "@/components/icons";
 import { getLatestPosts, getPost, getPosts } from "@/lib/blog/client";
 import { BLOG_HOME_LABEL, BLOG_TITLE } from "@/lib/blog/config";
 import { renderArticle, shouldShowToc } from "@/lib/blog/content";
@@ -167,141 +173,166 @@ export default async function ArticlePage({
     .slice(0, 3);
 
   return (
-    <article className="np-article bl-article">
-      <JsonLd
-        data={graph([
-          blogPostingNode({
-            title: post.title,
-            description: post.seo.description,
-            canonical: post.seo.canonical,
-            datePublished: isoDate(post.publishedAt),
-            dateModified: isoDate(post.updatedAt),
-            image: post.featuredImage,
-            tags: post.tags,
-            section: categoryLabel(post.category),
-          }),
-          breadcrumbNode([
-            { name: "Home", url: absoluteUrl("/") },
-            { name: BLOG_TITLE, url: absoluteUrl("/blog") },
+    <div className="bl-frame">
+      <article className="np-article bl-article">
+        <JsonLd
+          data={graph([
+            blogPostingNode({
+              title: post.title,
+              description: post.seo.description,
+              canonical: post.seo.canonical,
+              datePublished: isoDate(post.publishedAt),
+              dateModified: isoDate(post.updatedAt),
+              image: post.featuredImage,
+              tags: post.tags,
+              section: categoryLabel(post.category),
+            }),
+            breadcrumbNode([
+              { name: "Home", url: absoluteUrl("/") },
+              { name: BLOG_TITLE, url: absoluteUrl("/blog") },
+              { name: post.title },
+            ]),
+          ])}
+        />
+
+        <Breadcrumbs
+          items={[
+            { name: "Home", href: "/" },
+            { name: BLOG_TITLE, href: "/blog" },
             { name: post.title },
-          ]),
-        ])}
-      />
+          ]}
+        />
 
-      <Breadcrumbs
-        items={[
-          { name: "Home", href: "/" },
-          { name: BLOG_TITLE, href: "/blog" },
-          { name: post.title },
-        ]}
-      />
+        <header className="np-art-head bl-art-head">
+          <div className="np-eyebrow bl-art-cat">
+            {categoryLabel(post.category)}
+          </div>
+          <h1 className="np-art-title">{post.title}</h1>
+          {post.excerpt ? <p className="bl-standfirst">{post.excerpt}</p> : null}
 
-      <header className="np-art-head bl-art-head">
-        <div className="np-eyebrow">{categoryLabel(post.category)}</div>
-        <h1 className="np-art-title">{post.title}</h1>
-        {post.excerpt ? <p className="bl-standfirst">{post.excerpt}</p> : null}
-
-        <div className="np-art-meta">
-          <span>
-            By <b>{PERSON.name}</b>
-          </span>
-          <time dateTime={isoDate(post.publishedAt)}>
-            {formatDate(post.publishedAt)}
-          </time>
-          {updated ? (
-            <span>
-              Updated{" "}
-              <time dateTime={isoDate(post.updatedAt)}>
-                {formatDate(post.updatedAt)}
+          <div className="np-art-meta">
+            <span className="np-meta-item">
+              <span className="np-meta-avatar" aria-hidden="true">
+                {PERSON.name.charAt(0)}
+              </span>
+              By <b>{PERSON.name}</b>
+            </span>
+            <span className="np-meta-item">
+              <CalendarIcon />
+              <time dateTime={isoDate(post.publishedAt)}>
+                {formatDate(post.publishedAt)}
               </time>
             </span>
-          ) : null}
-          {reading ? <span>{reading}</span> : null}
-        </div>
-      </header>
+            {updated ? (
+              <span className="np-meta-item">
+                <PencilIcon />
+                <span>
+                  Updated{" "}
+                  <time dateTime={isoDate(post.updatedAt)}>
+                    {formatDate(post.updatedAt)}
+                  </time>
+                </span>
+              </span>
+            ) : null}
+            {reading ? (
+              <span className="np-meta-item">
+                <ClockIcon />
+                <span>{reading}</span>
+              </span>
+            ) : null}
+          </div>
+        </header>
 
-      {post.featuredImage ? (
-        <figure className="bl-art-media">
-          <Image
-            src={post.featuredImage}
-            alt={post.imageAlt || ""}
-            fill
-            sizes="(max-width: 860px) 100vw, 760px"
-            className="bl-art-img"
-            priority
-          />
-        </figure>
-      ) : null}
+        {post.featuredImage ? (
+          <figure className="bl-art-media">
+            <Image
+              src={post.featuredImage}
+              alt={post.imageAlt || ""}
+              fill
+              sizes="(max-width: 860px) 100vw, 760px"
+              className="bl-art-img"
+              priority
+            />
+          </figure>
+        ) : null}
 
-      {showToc ? <Toc headings={headings} /> : null}
+        <div
+          id={BODY_ID}
+          className="bl-prose"
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        <CodeCopy containerId={BODY_ID} />
 
-      <div
-        id={BODY_ID}
-        className="bl-prose"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      <CodeCopy containerId={BODY_ID} />
+        {post.tags.length > 0 ? (
+          <div className="tag-row bl-art-tags">
+            {post.tags.map((tag) => (
+              <span className="tag" key={tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        ) : null}
 
-      {post.tags.length > 0 ? (
-        <div className="tag-row bl-art-tags">
-          {post.tags.map((tag) => (
-            <span className="tag" key={tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      ) : null}
-
-      <p className="bl-origin">
-        Originally published on{" "}
-        <a href={post.url} target="_blank" rel="noopener">
-          {BLOG_HOME_LABEL}
-        </a>
-        .
+<p className="bl-origin">
+        <ExternalIcon />
+        <span>
+          Originally published on{" "}
+          <a href={post.url} target="_blank" rel="noopener">
+            {BLOG_HOME_LABEL}
+          </a>
+          .
+        </span>
       </p>
 
-      {relatedProjects.length > 0 ? (
-        <section className="bl-related" aria-labelledby="bl-related-project">
-          <h2 className="bl-related-label" id="bl-related-project">
-            The work behind it
-          </h2>
-          <ul className="bl-related-list">
-            {relatedProjects.map((project) => (
-              <li key={project.id}>
-                <Link href={`/projects/${project.slug}`}>
-                  {project.title}
-                  {project.titleEm ? ` ${project.titleEm}` : ""}
-                </Link>
-                <span>{project.category}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+        {relatedProjects.length > 0 ? (
+          <section className="bl-related" aria-labelledby="bl-related-project">
+            <h2 className="bl-related-label" id="bl-related-project">
+              The work behind it
+            </h2>
+            <ul className="bl-related-list">
+              {relatedProjects.map((project) => (
+                <li key={project.id}>
+                  <Link href={`/projects/${project.slug}`}>
+                    {project.title}
+                    {project.titleEm ? ` ${project.titleEm}` : ""}
+                  </Link>
+                  <span>{project.category}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
-      {more.length > 0 ? (
-        <section className="bl-related" aria-labelledby="bl-related-writing">
-          <h2 className="bl-related-label" id="bl-related-writing">
-            More writing
-          </h2>
-          <ul className="bl-related-list">
-            {more.map((item) => (
-              <li key={item.slug}>
-                <Link href={`/blog/${item.slug}`} prefetch={false}>
-                  {item.title}
-                </Link>
-                <span>{formatDate(item.publishedAt)}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
+        {more.length > 0 ? (
+          <section className="bl-related" aria-labelledby="bl-related-writing">
+            <h2 className="bl-related-label" id="bl-related-writing">
+              More writing
+            </h2>
+            <ul className="bl-related-list">
+              {more.map((item) => (
+                <li key={item.slug}>
+                  <Link href={`/blog/${item.slug}`} prefetch={false}>
+                    {item.title}
+                  </Link>
+                  <span>{formatDate(item.publishedAt)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
 
-      <footer className="np-art-foot">
-        <Link href="/blog" className="np-back">
-          <span aria-hidden="true">&larr;</span> All writing
-        </Link>
-      </footer>
-    </article>
+        <footer className="np-art-foot">
+          <Link href="/blog" className="np-back">
+            <span aria-hidden="true">&larr;</span> All writing
+          </Link>
+        </footer>
+      </article>
+
+      {showToc ? (
+        <aside className="bl-aside" aria-label="On this page">
+          <Toc headings={headings} />
+        </aside>
+      ) : null}
+    </div>
   );
 }

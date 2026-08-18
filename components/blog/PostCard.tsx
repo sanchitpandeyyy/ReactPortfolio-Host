@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import {
+  CalendarIcon,
+  ClockIcon,
+} from "@/components/icons";
 import { categoryLabel, formatDate, isoDate, readingLabel } from "@/lib/blog/format";
 import type { PostSummary } from "@/lib/blog/types";
 
@@ -38,11 +42,21 @@ export function PostCard({
 
       <div className="bl-card-body">
         <div className="bl-card-top">
-          <span>{categoryLabel(post.category)}</span>
-          <time dateTime={isoDate(post.publishedAt)}>
-            {formatDate(post.publishedAt)}
-          </time>
-          {reading ? <span>{reading}</span> : null}
+          <span className="bl-card-cat">
+            {categoryLabel(post.category)}
+          </span>
+          <span className="bl-card-meta">
+            <CalendarIcon />
+            <time dateTime={isoDate(post.publishedAt)}>
+              {formatDate(post.publishedAt)}
+            </time>
+          </span>
+          {reading ? (
+            <span className="bl-card-meta">
+              <ClockIcon />
+              <span>{reading}</span>
+            </span>
+          ) : null}
         </div>
 
         <h2 className="bl-card-title">{post.title}</h2>
