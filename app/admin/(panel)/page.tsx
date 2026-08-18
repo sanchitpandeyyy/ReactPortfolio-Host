@@ -1,22 +1,33 @@
 import Link from "next/link";
 import { prisma } from "@/lib/db";
-import { getPosts } from "@/lib/blog/client";
 import { getAnalytics } from "@/lib/content";
+import { toggleMessageRead } from "@/lib/admin-actions";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminOverview() {
-  const [projects, experience, community, week, posts, analytics, messages, unread] =
-    await Promise.all([
-      prisma.project.count(),
-      prisma.experience.count(),
-      prisma.community.count(),
-      prisma.weekItem.count(),
-      getPosts({ page: 1, perPage: 50 }),
-      getAnalytics(),
-      prisma.contactMessage.count(),
-      prisma.contactMessage.count({ where: { read: false } }),
-    ]);
+  const [
+    projects,
+    experience,
+    community,
+    week,
+    analytics,
+    messages,
+    unread,
+    recentMessages,
+  ] = await Promise.all([
+    prisma.project.count(),
+    prisma.experience.count(),
+    prisma.community.count(),
+    prisma.weekItem.count(),
+    getAnalytics(),
+    prisma.contactMessage.count(),
+    prisma.contactMessage.count({ where: { read: false } }),
+    prisma.contactMessage.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+    }),
+  ]);
 
   const traffic = [
     {
@@ -65,12 +76,6 @@ export default async function AdminOverview() {
       label: "This Week",
       count: week,
       hint: week === 0 ? "Now section is hidden" : "Items in the Now section",
-    },
-    {
-      href: "/admin/writing",
-      label: "Writing",
-      count: posts.posts.length,
-      hint: "Articles distributed from blog.sanchit.pro",
     },
     {
       href: "/admin/messages",
@@ -164,6 +169,60 @@ export default async function AdminOverview() {
           </Link>
         ))}
       </div>
+
+      <div className="adm-section">
+        Recent messages{" "}
+        {unread > 0 && (
+          <span className="adm-msg-dot">&#9679; {unread} unread</span>
+        )}
+      </div>
+
+      {recentMessages.length === 0 ? (
+        <p className="adm-empty">No messages yet.</p>
+      ) : (
+        <div className="adm-msg-list">
+          {recentMessages.map((m) => (
+            <article
+              key={m.id}
+              className={m.read ? "adm-msg" : "adm-msg unread"}
+            >
+              <div className="adm-msg-top">
+                <div>
+                  <b>{m.name}</b>{" "}
+                  <a href={`mailto:${m.email}`} className="adm-msg-mail">
+                    {m.email}
+                  </a>
+                </div>
+                <span className="adm-msg-date">
+                  {m.createdAt.toLocaleString("en-GB", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
+                  {!m.read && <span className="adm-msg-dot">&#9679; new</span>}
+                </span>
+              </div>
+              <p className="adm-msg-body">{m.message}</p>
+              <div className="adm-msg-actions">
+                <form action={toggleMessageRead}>
+                  <input type="hidden" name="id" value={m.id} />
+                  <button className="adm-table-edit">
+                    Mark as {m.read ? "unread" : "read"}
+                  </button>
+                </form>
+                <a
+                  className="adm-table-edit"
+                  href={`mailto:${m.email}?subject=Re: your message`}
+                >
+                  Reply
+                </a>
+                <Link className="adm-table-edit" href="/admin/messages">
+                  Inbox
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
 
       <div className="adm-banner">
         <div>

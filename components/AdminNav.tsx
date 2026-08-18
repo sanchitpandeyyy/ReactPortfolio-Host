@@ -9,7 +9,6 @@ const items = [
   { href: "/admin/experience", label: "Experience" },
   { href: "/admin/community", label: "Community" },
   { href: "/admin/week", label: "This Week" },
-  { href: "/admin/writing", label: "Writing" },
   { href: "/admin/messages", label: "Messages" },
   { href: "/admin/seo", label: "SEO" },
 ];

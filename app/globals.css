@@ -1455,15 +1455,55 @@ img { display: block; max-width: 100%; }
 .endcap-cta:hover { background: var(--ink-2); }
 
 .site-footer {
-  padding: 40px var(--pad-x) 80px;
+  position: relative;
+  z-index: 2;
+  padding: 64px var(--pad-x) 36px;
   border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
   font-family: var(--f-mono);
   font-size: 11.5px;
   letter-spacing: 0.02em;
   color: var(--mute);
+}
+
+/* ── intro row: brand, CTA, big line ──────────────────────────────── */
+.sf-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 26px 40px;
+  padding-bottom: 44px;
+  border-bottom: 1px solid var(--line);
+}
+.sf-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.sf-brand .star { color: var(--lime-deep); }
+.sf-line {
+  grid-column: 1 / -1;
+  font-family: var(--f-display);
+  font-weight: 500;
+  font-stretch: 90%;
+  font-size: clamp(30px, 5vw, 56px);
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  color: var(--ink);
+}
+.sf-line em { font-style: italic; font-weight: 400; color: var(--mute); }
+.sf-cta { justify-self: end; }
+
+/* ── link columns ─────────────────────────────────────────────────── */
+.sf-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  padding: 36px 0;
 }
 .site-footer .col label {
   display: block;
@@ -1471,20 +1511,46 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--mute-soft);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
-.site-footer a {
-  display: block;
+/* Link rows live only inside the columns; the intro CTA is a pill and
+   must not inherit row styling (or lose its light text to specificity). */
+.site-footer .col a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   color: var(--ink);
-  padding: 4px 0;
+  padding: 9px 0;
   border-bottom: 1px solid var(--line-soft);
-  transition: color 0.25s, border-color 0.25s, padding 0.25s var(--ease-snap);
+  transition: color 0.25s var(--ease-snap), border-color 0.25s var(--ease-snap),
+    padding-left 0.25s var(--ease-snap);
 }
-.site-footer a:hover { border-color: var(--ink); padding-left: 8px; }
-.site-footer a .arr { float: right; color: var(--mute); }
+.site-footer .col a:hover { border-color: var(--ink); padding-left: 10px; }
+.site-footer .col a .arr {
+  color: var(--mute);
+  transition: transform 0.3s var(--ease-snap), color 0.3s var(--ease-snap);
+}
+.site-footer .col a:hover .arr { transform: translate(2px, -2px); color: var(--ink); }
+
+/* ── bottom bar ───────────────────────────────────────────────────── */
+.sf-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute-soft);
+}
 
 @media (max-width: 760px) {
-  .site-footer { grid-template-columns: 1fr; }
+  .sf-cols { grid-template-columns: 1fr; }
+  .sf-top { grid-template-columns: 1fr; }
+  .sf-cta { justify-self: start; }
 }
 
 /* =========================================================
@@ -2400,32 +2466,83 @@ img { display: block; max-width: 100%; }
 
 /* ── Contact page ──────────────────────────────────────────────────── */
 .ct-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.ct-form { margin-top: 40px; display: grid; gap: 18px; position: relative; }
+.ct-form {
+  margin-top: 40px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--paper-card);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  display: grid;
+  gap: 20px;
+  position: relative;
+}
 .ct-row { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
 @media (max-width: 640px) { .ct-row { grid-template-columns: 1fr; } }
 .ct-field { display: grid; gap: 8px; }
 .ct-field span {
-  font-family: var(--f-mono); font-size: 11px;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: var(--mute);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
 }
 .ct-field input,
 .ct-field textarea {
   border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--paper-card);
+  border-radius: 12px;
+  background: var(--bg);
   padding: 14px 16px;
-  font-family: var(--f-ui); font-size: 15px;
+  font-family: var(--f-ui);
+  font-size: 15px;
   color: var(--ink);
   width: 100%;
   resize: vertical;
+  transition: border-color 0.25s var(--ease-snap),
+    box-shadow 0.25s var(--ease-snap), background 0.25s var(--ease-snap);
 }
+.ct-field input::placeholder,
+.ct-field textarea::placeholder { color: var(--mute-soft); }
+.ct-field input:hover,
+.ct-field textarea:hover { border-color: var(--hair); }
 .ct-field input:focus,
-.ct-field textarea:focus { outline: 2px solid var(--lime); outline-offset: 0; border-color: var(--ink); }
-.ct-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
+.ct-field textarea:focus {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(212, 255, 58, 0.35);
+  background: var(--paper-card);
+}
+.ct-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
 .ct-actions .endcap-cta { border: 0; cursor: pointer; }
-.ct-note { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--mute); }
-.ct-error { color: #b3261e; font-size: 14px; }
+.ct-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 2px;
+  transition: color 0.2s var(--ease-snap), border-color 0.2s var(--ease-snap);
+}
+.ct-note:hover { color: var(--ink); border-color: var(--ink); }
+.ct-note svg { width: 12px; height: 12px; }
+.ct-error {
+  color: #b3261e;
+  font-size: 13.5px;
+  padding: 10px 14px;
+  border: 1px solid rgba(179, 38, 30, 0.25);
+  border-radius: 10px;
+  background: rgba(179, 38, 30, 0.06);
+}
 .ct-done {
   margin-top: 48px;
   border: 1px solid var(--line);

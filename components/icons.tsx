@@ -55,3 +55,13 @@ export function ExternalIcon(props: IconProps) {
     </svg>
   );
 }
+
+/** Email address. */
+export function MailIcon(props: IconProps) {
+  return (
+    <svg {...base(props)}>
+      <rect x="1.5" y="3" width="13" height="10" rx="2" />
+      <path d="m2 4.5 6 4.5 6-4.5" />
+    </svg>
+  );
+}

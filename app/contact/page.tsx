@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
+import { ClockIcon, MailIcon } from "@/components/icons";
 import { submitContact } from "@/lib/contact-actions";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
 import { absoluteUrl, defaultSocialImage } from "@/lib/site";
@@ -55,10 +56,16 @@ export default async function ContactPage({
           Say <em>hi.</em>
         </h1>
         <div className="np-art-meta">
-          <span>
-            Or email <b>mail@sanchit.pro</b>
+          <span className="np-meta-item">
+            <MailIcon />
+            <span>
+              Or email <b>mail@sanchit.pro</b>
+            </span>
           </span>
-          <span>replies within 24h on weekdays (NPT)</span>
+          <span className="np-meta-item">
+            <ClockIcon />
+            <span>replies within 24h on weekdays (NPT)</span>
+          </span>
         </div>
       </header>
 
@@ -119,9 +126,10 @@ export default async function ContactPage({
             <button type="submit" className="endcap-cta">
               Send message <span aria-hidden="true">&rarr;</span>
             </button>
-            <span className="ct-note">
-              No newsletters, no spam — this lands straight in my inbox.
-            </span>
+            <a className="ct-note" href="mailto:mail@sanchit.pro">
+              <MailIcon />
+              Prefer email? mail@sanchit.pro
+            </a>
           </div>
         </form>
       )}

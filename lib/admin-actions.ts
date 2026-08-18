@@ -281,6 +281,7 @@ export async function toggleMessageRead(formData: FormData) {
       data: { read: !msg.read },
     });
   }
+  revalidatePath("/admin");
   revalidatePath("/admin/messages");
 }
 
@@ -289,6 +290,7 @@ export async function deleteMessage(formData: FormData) {
   await prisma.contactMessage.delete({
     where: { id: str(formData.get("id")) },
   });
+  revalidatePath("/admin");
   revalidatePath("/admin/messages");
 }
 
