@@ -42,7 +42,7 @@ blog.sanchit.pro  (CMS, original articles, showOnPortfolios)
 - Mirrored article pages canonicalise to the original on the blog and are
   deliberately **excluded** from this site's sitemap. `/blog` itself is a
   first-class page with its own canonical.
-- `POST /api/revalidate-blog` receives signed webhooks from the blog and
+- `POST /api/webhooks/blog` receives signed webhooks from the blog and
   revalidates `/blog`, the affected article, the homepage and the sitemap.
 
 Editing an article on the blog is the only step needed: nothing is copied,
@@ -50,5 +50,5 @@ synchronised or published from this repository.
 
 ## Environment
 
-See `.env.example`. `BLOG_WEBHOOK_SECRET` must match `PORTFOLIO_WEBHOOK_SECRET`
+See `.env.example`. `PORTFOLIO_WEBHOOK_SECRET` must match the same variable
 on the blog, and is server-only.

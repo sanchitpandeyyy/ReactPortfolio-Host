@@ -34,7 +34,7 @@ export const BLOG_REVALIDATE_SECONDS = 300;
 const MAX_SNAPSHOT_AGE_MS = 12 * 60 * 60 * 1000;
 
 /** Cache tags. The webhook route revalidates exactly these. */
-export const LIST_TAG = "blog-posts";
+export const LIST_TAG = "portfolio-blog";
 export const postTag = (slug: string) => `blog-post:${slug}`;
 
 /** Hosts allowed to serve blog imagery. Must stay in sync with the
@@ -78,6 +78,15 @@ function recall<T>(key: string): T | null {
     return null;
   }
   return hit.value as T;
+}
+
+/** Purge local emergency copies when the authoritative blog announces a change. */
+export function forgetBlogSnapshots(slugs: string[]): void {
+  for (const key of Array.from(snapshots.keys())) {
+    if (key.startsWith("list:") || slugs.some((slug) => key === `post:${slug}`)) {
+      snapshots.delete(key);
+    }
+  }
 }
 
 /* ── transport ──────────────────────────────────────────────────────────── */

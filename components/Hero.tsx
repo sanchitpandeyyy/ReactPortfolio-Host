@@ -94,11 +94,14 @@ export function Hero() {
 
       <div className="hero-foot" data-reveal>
         <p className="hero-blurb">
-          <b>Full-stack developer</b> based in Butwal, Nepal, with{" "}
+          <b>Software developer</b> who loves building things, not just
+          websites but software and solutions end to end. Always learning,
+          always experimenting, and constantly pushing myself to become a
+          better version of me. An undergraduate student and tech community
+          contributor with{" "}
           <span className="mark">{yearsOfExperience}+ years</span> of
-          hands-on experience across the stack backend systems, APIs,
-          databases, and frontend engineering. Also an active developer
-          community and tech community contributor.
+          experience designing and building scalable, performant, and
+          polished applications.
         </p>
 
         <div className="meta-block" aria-label="Details">

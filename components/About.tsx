@@ -65,18 +65,19 @@ export function About() {
 
         <div>
           <p className="about-body" data-reveal>
-            I write software the way a <em>monk</em> stacks stones, one
-            careful, <span className="strike">over-engineered</span> deliberate
-            decision at a time, until a system feels{" "}
-            <span className="mark">inevitable</span>.
+            I write software the way it should be built, <em>simple</em>,
+            clear, and deliberate. No{" "}
+            <span className="strike">over-engineering</span>, no shortcuts,
+            just clean code and systems that feel{" "}
+            <span className="mark">reliable</span>.
           </p>
 
           <div className="about-foot">
             <div className="col" data-reveal>
               <label>What I do</label>
               <b>Full-stack web apps</b>, modern e-commerce platforms,
-              WordPress plugin toolkits, community tooling, and infrastructure
-              that doesn&apos;t fall over at 03:00.
+              WordPress plugin toolkits, and community tooling built to
+              stay reliable.
             </div>
             <div className="col" data-reveal>
               <label>How I work</label>

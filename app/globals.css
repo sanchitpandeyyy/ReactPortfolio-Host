@@ -29,6 +29,9 @@
   --ease-snap:  cubic-bezier(0.25, 1, 0.5, 1);
   --ease-power: cubic-bezier(0.2, 0.9, 0.1, 1);
   --pad-x: clamp(20px, 4vw, 56px);
+  /* Content is capped at one comfortable reading width; only decorative
+     full-bleed bands (marquee, pinned work rail) break out of it. */
+  --container: 1440px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -88,6 +91,19 @@ img { display: block; max-width: 100%; }
   opacity: 0.045;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* =========================================================
+   LAYOUT · shared container
+   All text-bearing sections share one centered max-width so
+   grids and type never stretch across an ultra-wide screen.
+   ========================================================= */
+.hero, .about, .xp-sec, .skills-sec, .comm-sec,
+.work-head, .now-sec, .notes-sec, .term-sec,
+.endcap, .site-footer {
+  max-width: var(--container);
+  margin-inline: auto;
+  width: 100%;
 }
 
 /* =========================================================
@@ -184,9 +200,114 @@ img { display: block; max-width: 100%; }
 .topnav .cta:hover { background: var(--ink-2); }
 .topnav .cta .arr { font-size: 11px; }
 
+/* ── mobile: hamburger + full-screen overlay ───────────────────────── */
+.nav-toggle {
+  display: none;
+  position: relative;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--ink);
+  cursor: pointer;
+  transition: background 0.3s var(--ease-snap), transform 0.2s var(--ease-snap);
+}
+.nav-toggle:hover { background: var(--ink-2); }
+.nav-toggle:active { transform: scale(0.94); }
+.nav-toggle span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 15px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: var(--bg);
+  transition: transform 0.3s var(--ease-snap);
+}
+.nav-toggle span:first-child { transform: translate(-50%, -3.5px); }
+.nav-toggle span:last-child { transform: translate(-50%, 3.5px); }
+.topnav.open .nav-toggle span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.topnav.open .nav-toggle span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
 @media (max-width: 760px) {
-  .topnav { padding: 6px 6px 6px 12px; font-size: 12px; }
-  .topnav a.link { display: none; }
+  /* The pill becomes a full-width bar; no translate so the overlay's
+     fixed positioning can use the viewport as its containing block. */
+  .topnav {
+    left: 14px;
+    right: 14px;
+    transform: none;
+    width: auto;
+    justify-content: space-between;
+    padding: 6px 6px 6px 14px;
+    gap: 8px;
+  }
+  .topnav .brand-mark,
+  .nav-toggle { position: relative; z-index: 2; }
+  .nav-toggle { display: inline-grid; place-items: center; }
+
+  /* Desktop pill links are replaced by the full-screen overlay. */
+  .topnav-links { display: none; }
+}
+
+/* ── mobile: full-screen white overlay (sibling of the pill) ────────── */
+.topnav-overlay {
+  display: none;
+}
+@media (max-width: 760px) {
+  .topnav-overlay {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 88px 24px 48px;
+    background: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease-snap);
+  }
+  .topnav-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .topnav-overlay .link {
+    display: block;
+    font-family: var(--f-display);
+    font-size: clamp(26px, 7vw, 40px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    padding: 10px 16px;
+    border-radius: 12px;
+  }
+  .topnav-overlay .link:hover { background: rgba(10, 10, 10, 0.05); }
+  .topnav-overlay .cta {
+    margin: 20px 0 0;
+    padding: 13px 22px;
+    font-size: 15px;
+  }
+
+  /* Decorative strips and the terminal add noise on small screens. */
+  .marquee { display: none; }
+  .term-sec { display: none; }
+
+  /* Compact hero: no full-viewport grid, so content starts right under
+     the nav instead of hanging in a big empty middle. */
+  .hero {
+    min-height: auto;
+    display: block;
+    padding: 88px var(--pad-x) 44px;
+  }
+  .hero-headline { align-self: auto; }
+  .hero-foot { margin-top: 36px; }
 }
 
 /* =========================================================
@@ -236,6 +357,12 @@ img { display: block; max-width: 100%; }
   color: var(--ink-2);
   margin: 18px 0 10px;
   font-family: var(--f-display);
+}
+/* The verb row must never wrap: it breaks off the viewport-vw sizing
+   (14.2vw) so `[designs] software.` always stays on one line. */
+.hero-headline .row:last-child {
+  white-space: nowrap;
+  font-size: clamp(44px, 11vw, 220px);
 }
 
 .verb-wrap { position: relative; display: inline-block; vertical-align: baseline; }
@@ -746,6 +873,14 @@ img { display: block; max-width: 100%; }
 .comm-feature .comm-body { font-size: 15px; max-width: 38ch; }
 .b-lime .comm-body { color: rgba(10, 10, 10, 0.74); }
 
+@media (max-width: 1100px) {
+  .b-col4 { grid-column: span 6; }
+  .b-col5 { grid-column: span 6; }
+  .b-col7 { grid-column: span 12; }
+  .notes-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-stats { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { gap: 56px; }
+}
 @media (max-width: 900px) {
   .bento { grid-template-columns: 1fr; }
   .b-col4, .b-col5, .b-col7, .b-col12 { grid-column: auto; }
@@ -772,6 +907,8 @@ img { display: block; max-width: 100%; }
   height: 100%;
   padding: 0 var(--pad-x);
   gap: 28px;
+  max-width: var(--container);
+  margin-inline: auto;
   will-change: transform;
 }
 
@@ -1275,13 +1412,31 @@ img { display: block; max-width: 100%; }
 .note:hover .foot .arr { transform: rotate(-45deg); background: var(--ink); color: var(--bg); }
 
 @media (max-width: 900px) {
-  .notes-grid { grid-template-columns: 1fr; }
+  .about, .xp-sec, .skills-sec, .comm-sec { padding-block: 88px; }
+  .now-sec { padding: 72px var(--pad-x) 84px; }
+  .notes-sec { padding: 48px var(--pad-x) 64px; }
+  .term-sec { padding: 48px var(--pad-x) 84px; }
+  .endcap { padding: 84px var(--pad-x) 48px; }
   .about-grid { grid-template-columns: 1fr; }
   .about-side { position: static; }
   .about-foot { grid-template-columns: 1fr; }
   .about-stats { grid-template-columns: 1fr 1fr; }
   .hero-foot { grid-template-columns: 1fr; }
   .sec-head { grid-template-columns: 1fr; gap: 8px; }
+}
+@media (max-width: 720px) {
+  .notes-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .about, .xp-sec, .skills-sec, .comm-sec { padding-block: 72px; }
+  .now-sec { padding: 64px var(--pad-x) 72px; }
+  .endcap { padding: 72px var(--pad-x) 40px; }
+  .site-footer { padding-top: 48px; }
+  .about-grid { gap: 40px; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .bento { gap: 12px; }
+  .now-grid { gap: 12px; }
+  .sec-head { margin-bottom: 36px; }
 }
 
 /* =========================================================

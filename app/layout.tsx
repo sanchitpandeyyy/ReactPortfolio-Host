@@ -5,22 +5,19 @@ import { getSiteSeo } from "@/lib/content";
 import { PERSON, SITE_LOCALE, SITE_NAME, absoluteUrl, siteUrl } from "@/lib/site";
 
 const defaults = {
-  title: "Sanchit Pandey · Full-Stack Developer",
+  title: "Sanchit Pandey · Software Developer",
   description:
-    "Sanchit Pandey · Full-stack engineer based in Butwal, Nepal. Shipping web platforms, e-commerce, and community products with Next.js, TypeScript, and Postgres.",
+    "Sanchit Pandey · Software developer who loves building things, not just websites but software and solutions end to end. Always learning, always experimenting, and shipping scalable, performant, polished applications.",
   keywords: [
     "Sanchit Pandey",
-    "Full-Stack Developer",
-    "Next.js",
-    "TypeScript",
+    "Software Developer",
     "Web Developer Nepal",
-    "Butwal",
     "CSIT Association of BMC",
     "WordCamp Nepal",
   ],
-  ogTitle: "Sanchit Pandey · Full-Stack Developer",
+  ogTitle: "Sanchit Pandey · Software Developer",
   ogDescription:
-    "Full-stack engineer based in Butwal, Nepal. A one-person studio that ships software.",
+    "Software developer who loves building things, not just websites but software and solutions end to end. Always learning, always experimenting, and shipping scalable, performant, polished applications.",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
