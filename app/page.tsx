@@ -18,8 +18,9 @@ import { graph, personNode, webPageNode, websiteNode } from "@/lib/schema";
 import { absoluteUrl } from "@/lib/site";
 import type { Metadata } from "next";
 
-// Sections read from the database, so render this page per request.
-export const dynamic = "force-dynamic";
+// Sections read from the database. The page is static and the admin
+// actions revalidate it on every save; the 24h timer is only a ceiling.
+export const revalidate = 86400;
 
 /**
  * The homepage is this site's profile page: it introduces the person the

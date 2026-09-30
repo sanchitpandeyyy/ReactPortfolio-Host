@@ -169,6 +169,8 @@ export async function saveProject(formData: FormData) {
   if (id) await prisma.project.update({ where: { id }, data });
   else await prisma.project.create({ data });
   revalidatePath("/");
+  revalidatePath("/projects/[slug]", "page");
+  revalidatePath("/sitemap.xml");
   redirect("/admin/projects");
 }
 
@@ -176,6 +178,8 @@ export async function deleteProject(formData: FormData) {
   await guard();
   await prisma.project.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
+  revalidatePath("/projects/[slug]", "page");
+  revalidatePath("/sitemap.xml");
   revalidatePath("/admin/projects");
   redirect("/admin/projects");
 }
@@ -235,6 +239,8 @@ export async function saveCommunity(formData: FormData) {
   if (id) await prisma.community.update({ where: { id }, data });
   else await prisma.community.create({ data });
   revalidatePath("/");
+  revalidatePath("/community/[slug]", "page");
+  revalidatePath("/sitemap.xml");
   redirect("/admin/community");
 }
 
@@ -242,6 +248,8 @@ export async function deleteCommunity(formData: FormData) {
   await guard();
   await prisma.community.delete({ where: { id: str(formData.get("id")) } });
   revalidatePath("/");
+  revalidatePath("/community/[slug]", "page");
+  revalidatePath("/sitemap.xml");
   revalidatePath("/admin/community");
   redirect("/admin/community");
 }
@@ -312,6 +320,7 @@ export async function saveSeo(formData: FormData) {
     create: { id: "main", ...data },
     update: data,
   });
-  revalidatePath("/");
+  // Site SEO feeds the root layout metadata on every page.
+  revalidatePath("/", "layout");
   redirect("/admin/seo");
 }

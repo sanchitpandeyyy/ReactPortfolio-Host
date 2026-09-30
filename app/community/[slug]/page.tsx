@@ -8,7 +8,14 @@ import { getCommunityBySlug } from "@/lib/content";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
 import { absoluteUrl, defaultSocialImage, metaDescription } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+// Rendered on first visit, then cached; admin saves revalidate it.
+export const revalidate = 86400;
+
+// An empty list opts the route into on-demand static generation, so each
+// page is built on its first request and served from cache after that.
+export function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({
   params,
