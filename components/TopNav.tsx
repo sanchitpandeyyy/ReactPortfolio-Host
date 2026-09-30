@@ -8,7 +8,7 @@ const links = [
   { href: "#skills", label: "Skills" },
   { href: "#work", label: "Work" },
   { href: "#community", label: "Community" },
-  { href: "#notes", label: "Writing" },
+  { href: "https://sanchit.pro/blog", label: "Writing" },
 ];
 
 /**

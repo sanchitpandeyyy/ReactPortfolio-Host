@@ -4,9 +4,8 @@ import { SiteFooter } from "@/components/Footer";
 import { SubpageHeader } from "@/components/SubpageHeader";
 
 /**
- * Shown for any URL that does not resolve, including an article the central
- * blog has unpublished or stopped distributing. It is a real 404 rather than a
- * redirect: a withdrawn article is gone, not moved.
+ * Shown for any URL that does not resolve. It is a real 404 rather than a
+ * redirect.
  */
 export const metadata: Metadata = {
   title: "Page not found",
@@ -25,8 +24,7 @@ export default function NotFound() {
               This page isn&apos;t <em>here.</em>
             </h1>
             <p className="bl-standfirst">
-              The link may be out of date, or the article may no longer be
-              published here. Everything else is a click away.
+              The link may be out of date. Everything else is a click away.
             </p>
           </header>
 
@@ -34,9 +32,9 @@ export default function NotFound() {
             <Link href="/" className="endcap-cta">
               Back home <span aria-hidden="true">&rarr;</span>
             </Link>
-            <Link href="/blog" className="np-back dt-cta-alt">
+            <a href="https://sanchit.pro/blog" className="np-back dt-cta-alt">
               Read the writing <span aria-hidden="true">&rarr;</span>
-            </Link>
+            </a>
           </div>
         </article>
       </main>

@@ -12,7 +12,7 @@ import { useState } from "react";
  * configured for falls back to a plain <img> instead of failing to render.
  */
 
-const OPTIMISED_HOSTS = new Set(["res.cloudinary.com", "blog.sanchit.pro"]);
+const OPTIMISED_HOSTS = new Set(["res.cloudinary.com", "assets.sanchit.pro"]);
 
 function isOptimisable(src: string): boolean {
   try {

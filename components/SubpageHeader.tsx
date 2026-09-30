@@ -11,7 +11,7 @@ export function SubpageHeader() {
         Sanchit
       </Link>
       <nav className="np-nav-links" aria-label="Primary">
-        <Link href="/blog">Writing</Link>
+        <a href="https://sanchit.pro/blog">Writing</a>
         <Link href="/#work">Work</Link>
         <Link href="/contact" className="np-nav-cta">
           Get in touch

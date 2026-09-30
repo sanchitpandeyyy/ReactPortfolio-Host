@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Gallery } from "@/components/Gallery";
-import { relatedArticles } from "@/lib/blog/relations";
 import { getProjectBySlug } from "@/lib/content";
-import { formatDate } from "@/lib/blog/format";
 import {
   breadcrumbNode,
   creativeWorkNode,
@@ -81,7 +79,6 @@ export default async function ProjectPage({
   const name = fullTitle(project);
   const url = absoluteUrl(`/projects/${slug}`);
   // Curated writing about this project, if any is distributed to the site.
-  const articles = await relatedArticles(slug);
 
   return (
     <article className="np-article dt-page">
@@ -143,24 +140,6 @@ export default async function ProjectPage({
       <div className="np-art-body" data-reveal>
         <p>{project.desc}</p>
       </div>
-
-      {articles.length > 0 && (
-        <section className="bl-related" aria-labelledby="project-writing">
-          <h2 className="bl-related-label" id="project-writing">
-            Writing about this project
-          </h2>
-          <ul className="bl-related-list">
-            {articles.map((article) => (
-              <li key={article.slug}>
-                <Link href={`/blog/${article.slug}`} prefetch={false}>
-                  {article.title}
-                </Link>
-                <span>{formatDate(article.publishedAt)}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
 
       <div className="dt-actions" data-reveal>
         {project.href && (

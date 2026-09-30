@@ -227,6 +227,12 @@ export function Terminal() {
           );
           return;
         }
+        if (id === "notes") {
+          // Writing lives on sanchit.pro/blog now.
+          appendLine(`<span class="sys">→ opening <b>sanchit.pro/blog</b>…</span>`);
+          window.open("https://sanchit.pro/blog", "_blank", "noopener");
+          return;
+        }
         const sec = document.getElementById(id);
         if (!sec) return;
         appendLine(`<span class="sys">→ scrolling to <b>${id}</b>…</span>`);

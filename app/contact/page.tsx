@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { ClockIcon, MailIcon } from "@/components/icons";
 import { submitContact } from "@/lib/contact-actions";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";

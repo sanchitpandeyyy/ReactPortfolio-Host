@@ -1,16 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getPosts } from "@/lib/blog/client";
-import { POSTS_PER_PAGE } from "@/lib/blog/config";
 import { prisma } from "@/lib/db";
 import { absoluteUrl } from "@/lib/site";
 
 /**
  * Only this site's own canonical URLs.
- *
- * Mirrored article pages (/blog/<slug>) are deliberately absent: their
- * canonical points at blog.sanchit.pro, and listing a URL here while telling
- * search engines the real one lives elsewhere is a contradiction. The blog's
- * own sitemap covers the articles; this one covers the portfolio.
+ * Writing lives on sanchit.pro/blog and is listed in that site's sitemap.
  */
 export const revalidate = 3600;
 
@@ -26,23 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB unavailable at build time — ship the static entries.
   }
 
-  // lastmod for /blog tracks the newest distributed article, not the crawl.
-  const { posts, meta } = await getPosts({ page: 1, perPage: POSTS_PER_PAGE });
-  const blogUpdated = posts.reduce<Date | null>((newest, post) => {
-    const updated = new Date(post.updatedAt);
-    return !newest || updated > newest ? updated : newest;
-  }, null);
-
-  const paginated = Array.from(
-    { length: Math.max(0, meta.totalPages - 1) },
-    (_, index) => ({
-      url: absoluteUrl(`/blog/page/${index + 2}`),
-      lastModified: blogUpdated ?? undefined,
-      changeFrequency: "weekly" as const,
-      priority: 0.4,
-    }),
-  );
-
   return [
     {
       url: absoluteUrl("/"),
@@ -50,13 +27,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: absoluteUrl("/blog"),
-      lastModified: blogUpdated ?? undefined,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    ...paginated,
     {
       url: absoluteUrl("/contact"),
       lastModified: undefined,

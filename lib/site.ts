@@ -2,15 +2,11 @@
  * Single source of truth for this portfolio's identity.
  *
  * Every canonical URL, sitemap entry, Open Graph URL and JSON-LD @id must come
- * from here, so the site can never advertise a mix of origins. The blog lives
- * on its own origin and is treated as an external system throughout.
+ * from here, so the site can never advertise a mix of origins.
  */
 
 /** Real production origin. Used as the guard when env config is missing/wrong. */
 export const PRODUCTION_ORIGIN = "https://sanchitpandey.com.np";
-
-/** The central blog. Original articles live here; this site only mirrors them. */
-export const BLOG_ORIGIN = "https://blog.sanchit.pro";
 
 export const SITE_NAME = "Sanchit Pandey";
 export const SITE_LOCALE = "en_US";
@@ -53,7 +49,7 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /**
- * The person behind this portfolio, the blog and the projects.
+ * The person behind this portfolio and the projects.
  *
  * Only facts already published on this site: the profile links come from the
  * footer, the role and location from the hero. Nothing here is invented.
@@ -69,7 +65,6 @@ export const PERSON = {
   /** Verified profiles that describe the same person. */
   sameAs: [
     "https://sanchit.pro",
-    BLOG_ORIGIN,
     "https://github.com/sanchitpandeyyy",
     "https://www.linkedin.com/in/sanchitpandeyyy/",
     "https://www.instagram.com/sanchitpandeyyy/",

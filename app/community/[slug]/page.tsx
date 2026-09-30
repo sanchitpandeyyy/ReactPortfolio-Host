@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { Breadcrumbs } from "@/components/blog/Breadcrumbs";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Gallery } from "@/components/Gallery";
 import { getCommunityBySlug } from "@/lib/content";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";

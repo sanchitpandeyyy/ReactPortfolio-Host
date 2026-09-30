@@ -2762,9 +2762,9 @@ img { display: block; max-width: 100%; }
 .adm-msg-actions { display: flex; gap: 10px; margin-top: 14px; }
 
 /* =========================================================
-   WRITING · index, cards, pagination
-   Mirrors articles from blog.sanchit.pro using the same
-   paper/lime language as the rest of the site.
+   WRITING · shared article typography
+   The blog moved to sanchit.pro/blog; the 404 page still uses
+   .bl-standfirst from this section.
    ========================================================= */
 .bl-index { padding-top: 64px; }
 .bl-head { margin-bottom: 40px; }

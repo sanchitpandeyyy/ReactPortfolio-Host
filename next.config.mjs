@@ -11,23 +11,23 @@ const nextConfig = {
   images: {
     /**
      * Only hosts that actually serve this site's imagery: Cloudinary for
-     * project uploads and the central blog (plus its asset host) for article
-     * art. A wildcard here would turn the image optimiser into an open proxy
-     * for any URL an API response happened to contain.
+     * project uploads and the asset CDN. A wildcard here would turn the image
+     * optimiser into an open proxy.
      */
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
-      { protocol: "https", hostname: "blog.sanchit.pro" },
       { protocol: "https", hostname: "assets.sanchit.pro" },
     ],
     formats: ["image/avif", "image/webp"],
   },
   async redirects() {
     return [
-      // /notes was the placeholder blog. The articles now come from the
-      // central blog and live under /blog, so the old URLs move permanently.
-      { source: "/notes", destination: "/blog", permanent: true },
-      { source: "/notes/:slug", destination: "/blog/:slug", permanent: true },
+      // All writing lives on sanchit.pro/blog. Old /blog and /notes URLs on
+      // this site move there permanently, path for path.
+      { source: "/blog", destination: "https://sanchit.pro/blog", permanent: true },
+      { source: "/blog/:path*", destination: "https://sanchit.pro/blog/:path*", permanent: true },
+      { source: "/notes", destination: "https://sanchit.pro/blog", permanent: true },
+      { source: "/notes/:slug", destination: "https://sanchit.pro/blog/:slug", permanent: true },
     ];
   },
 };

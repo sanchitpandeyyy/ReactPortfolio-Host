@@ -9,7 +9,6 @@ import { Skills } from "@/components/Skills";
 import { Work } from "@/components/Work";
 import { Community } from "@/components/Community";
 import { Now } from "@/components/Now";
-import { Writing } from "@/components/Writing";
 import { Terminal } from "@/components/Terminal";
 import { Endcap } from "@/components/Endcap";
 import { SiteFooter } from "@/components/Footer";
@@ -86,7 +85,6 @@ export default function Page() {
         <Marquee items={neutralMarquee} variant="neutral" reverse />
         <Community />
         <Now />
-        <Writing />
         <Terminal />
         <Endcap />
       </main>

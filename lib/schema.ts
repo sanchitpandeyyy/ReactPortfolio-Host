@@ -82,45 +82,6 @@ export function webPageNode({
   };
 }
 
-export interface ArticleNodeInput {
-  title: string;
-  description: string;
-  /** The original article URL on the central blog. */
-  canonical: string;
-  datePublished: string;
-  dateModified: string;
-  image?: string | null;
-  tags?: string[];
-  section?: string;
-}
-
-/**
- * Schema for a mirrored article.
- *
- * url and mainEntityOfPage both point at blog.sanchit.pro, matching the
- * canonical tag: this page is a copy, and the markup says so rather than
- * claiming the portfolio is the place of publication.
- */
-export function blogPostingNode(post: ArticleNodeInput): Node {
-  return {
-    "@type": "BlogPosting",
-    "@id": `${post.canonical}#article`,
-    headline: post.title.slice(0, 110),
-    description: post.description,
-    url: post.canonical,
-    mainEntityOfPage: { "@type": "WebPage", "@id": post.canonical },
-    datePublished: post.datePublished,
-    dateModified: post.dateModified,
-    author: { "@id": PERSON_ID },
-    publisher: { "@id": PERSON_ID },
-    ...(post.image ? { image: [post.image] } : {}),
-    ...(post.tags?.length ? { keywords: post.tags.join(", ") } : {}),
-    ...(post.section ? { articleSection: post.section } : {}),
-    inLanguage: "en",
-    isAccessibleForFree: true,
-  };
-}
-
 export function creativeWorkNode({
   url,
   name,
